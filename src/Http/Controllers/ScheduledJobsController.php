@@ -9,7 +9,7 @@ use Stepanenko3\NovaCards\Factories\ScheduledJobFactory;
 
 class ScheduledJobsController extends Controller
 {
-    public function index(Kernel $kernel, Schedule $schedule)
+    public function __invoke(Kernel $kernel, Schedule $schedule)
     {
         $jobs = collect($schedule->events())
             ->map(function ($event) {
@@ -32,5 +32,4 @@ class ScheduledJobsController extends Controller
 
         return response()->json($jobs);
     }
-
 }

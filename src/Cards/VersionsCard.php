@@ -6,8 +6,6 @@ use Laravel\Nova\Card;
 
 class VersionsCard extends Card
 {
-    // https://github.com/Kussie/nova-version-card
-
     /**
      * The width of the card (1/3, 1/2, or full).
      *

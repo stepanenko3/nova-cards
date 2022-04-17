@@ -7,7 +7,7 @@ use SystemResources;
 
 class SystemResourcesController extends Controller
 {
-    public function index()
+    public function __invoke()
     {
         $ram = SystemResources::ram();
         $ramUsed = SystemResources::ramUsed();
@@ -37,5 +37,4 @@ class SystemResourcesController extends Controller
             ],
         ];
     }
-
 }

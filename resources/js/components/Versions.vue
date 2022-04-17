@@ -35,19 +35,24 @@
     import Polling from '../mixins/Polling.js'
 
     export default {
-        props: ['card'],
+        props: {
+            card: {
+                type: Object,
+                required: true,
+            },
+        },
 
         mixins: [Polling],
 
         data: () => ({
             data: {},
-            fetchPath: '/nova-vendor/stepanenko3/nova-cards/versions',
+            endpoint: '/nova-vendor/stepanenko3/nova-cards/versions',
         }),
 
         methods: {
-            fetchCallback: function (data, response) {
-                this.data = data;
-            },
+            success: function(data) {
+                this.data = data
+            }
         }
     }
 </script>

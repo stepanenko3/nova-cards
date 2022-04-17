@@ -5,7 +5,7 @@
         @refresh="fetch"
     >
         <p v-if="!loading && !data.length">
-            {{ __('You do not currently have any scheduled jobs.') }}
+            {{ __('No Data') }}
         </p>
 
         <table v-if="data.length" class="w-full text-left table-collapse">
@@ -22,19 +22,24 @@
     import Polling from '../mixins/Polling.js'
 
     export default {
-        props: ['card'],
+        props: {
+            card: {
+                type: Object,
+                required: true,
+            },
+        },
 
         mixins: [Polling],
 
         data: () => ({
             data: [],
-            fetchPath: '/nova-vendor/stepanenko3/nova-cards/scheduled-jobs',
+            endpoint: '/nova-vendor/stepanenko3/nova-cards/scheduled-jobs',
         }),
 
         methods: {
-            fetchCallback: function (data, response) {
-                    this.data = data
-            },
+            success: function(data) {
+                this.data = data
+            }
         },
     }
 </script>

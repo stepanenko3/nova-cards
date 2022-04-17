@@ -8,8 +8,6 @@ use Stepanenko3\NovaCards\MarkdownConverter;
 
 class HtmlCard extends Card
 {
-    // https://github.com/InteractionDesignFoundation/nova-html-card
-
     /**
      * The width of the card (1/3, 1/2, or full).
      * @var string

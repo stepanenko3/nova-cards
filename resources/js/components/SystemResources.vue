@@ -4,7 +4,7 @@
         :loading="loading"
         @refresh="fetch"
     >
-        <table v-if="data" class="w-full text-left table-collapse">
+        <table v-if="data && data.disk_space" class="w-full text-left table-collapse">
             <tbody class="align-baseline">
                 <tr>
                     <td class="py-2 pr-2 font-bold">Disk Space</td>
@@ -29,6 +29,9 @@
                 </tr>
             </tbody>
         </table>
+        <div v-else>
+            {{ __('No Data') }}
+        </div>
     </LoadingCardWithButton>
 </template>
 
@@ -36,19 +39,24 @@
     import Polling from '../mixins/Polling.js'
 
     export default {
-        props: ['card'],
+        props: {
+            card: {
+                type: Object,
+                required: true,
+            },
+        },
 
         mixins: [Polling],
 
         data: () => ({
             data: {},
-            fetchPath: '/nova-vendor/stepanenko3/nova-cards/system-resources',
+            endpoint: '/nova-vendor/stepanenko3/nova-cards/system-resources',
         }),
 
         methods: {
-            fetchCallback: function (data) {
-                this.data = data;
-            },
+            success: function(data) {
+                this.data = data
+            }
         }
     }
 </script>

@@ -1,10 +1,15 @@
 export default {
-    props: ['card'],
+    props: {
+        card: {
+            type: Object,
+            required: true,
+        },
+    },
 
     data: () => ({
         loading: false,
         timeout: null,
-        fetchPath: '',
+        endpoint: '',
     }),
 
     mounted() {
@@ -21,16 +26,27 @@ export default {
                 clearTimeout(this.timeout);
             }
 
-            Nova.request().get(this.fetchPath).then((response) => {
-                this.loading = false
+            Nova.request()
+                .get(this.endpoint, this.payload())
+                .then(response => {
+                    this.loading = false
 
-                this.fetchCallback(response.data, response);
+                    this.success(response.data, response);
 
-                if (this.card.pollingTime) {
-                    this.timeout = setTimeout(this.fetch, this.card.pollingTime)
-                }
-            })
+                    if (this.card.pollingTime) {
+                        this.timeout = setTimeout(this.fetch, this.card.pollingTime)
+                    }
+                })
+                .catch(response => {
+                    this.loading = false
+
+                    this.error(response);
+                })
         },
-        fetchCallback: (data, response) => {},
+
+        success: (data, response) => { },
+        error: (response) => { },
+
+        payload: () => ({})
     }
 }

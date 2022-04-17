@@ -23,6 +23,23 @@
 
 <script>
     export default {
-        props: ['card', 'refresh', 'loading', 'heading'],
+        props: {
+            card: {
+                type: Object,
+                required: true,
+            },
+            refresh: {
+                type: Object,
+                required: false,
+            },
+            loading: {
+                type: Boolean,
+                required: false,
+            },
+            heading: {
+                type: String,
+                required: true,
+            }
+        },
     }
 </script>

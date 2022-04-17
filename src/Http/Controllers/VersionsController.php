@@ -7,7 +7,7 @@ use Laravel\Nova\Nova;
 
 class VersionsController
 {
-    public function index()
+    public function __invoke()
     {
         return [
             'os' => php_uname('s') . ' (' . php_uname('r') . ' - ' . php_uname('v') . ')',
@@ -27,7 +27,7 @@ class VersionsController
             'sqlsrv',
         ];
 
-        if (! in_array(config('database.default'), $knownDatabases)) {
+        if (!in_array(config('database.default'), $knownDatabases)) {
             return 'Unkown';
         }
 

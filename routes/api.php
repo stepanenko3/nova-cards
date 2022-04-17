@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Stepanenko3\NovaCards\Http\Controllers\PercentageController;
 use Stepanenko3\NovaCards\Http\Controllers\ScheduledJobsController;
 use Stepanenko3\NovaCards\Http\Controllers\SystemResourcesController;
 use Stepanenko3\NovaCards\Http\Controllers\VersionsController;
@@ -16,6 +17,6 @@ use Stepanenko3\NovaCards\Http\Controllers\VersionsController;
 |
 */
 
-Route::get('system-resources', SystemResourcesController::class . '@index');
-Route::get('versions', VersionsController::class . '@index');
-Route::get('scheduled-jobs', ScheduledJobsController::class . '@index');
+Route::get('system-resources', SystemResourcesController::class);
+Route::get('versions', VersionsController::class);
+Route::get('scheduled-jobs', ScheduledJobsController::class);
