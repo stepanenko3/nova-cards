@@ -1,7 +1,9 @@
 <template>
     <Card class="h-auto p-4">
         <Heading :level="3" class="flex items-center justify-between mb-2">
-            <span>{{ heading }}</span>
+            <span :class="headingClass">
+                {{ heading }}
+            </span>
 
             <LoadingButton
                 class="relative ml-auto"
@@ -39,7 +41,11 @@
             heading: {
                 type: String,
                 required: true,
-            }
+            },
+            headingClass: {
+                type: String,
+                required: false,
+            },
         },
     }
 </script>

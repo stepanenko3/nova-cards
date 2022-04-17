@@ -1,6 +1,6 @@
 <template>
     <a class="h-auto hover:opacity-50" :href="card.url" :target="card.target">
-        <Card class="h-full p-4 flex flex-col items-center justify-center ">
+        <Card class="h-full p-4 flex flex-col items-center justify-center">
             <Icon width="32" height="32" class="mb-4" type="link"></Icon>
             <Heading level="1" class="mb-3">{{ card.title }}</Heading>
             <Heading level="3" v-if="card.subtitle">{{ card.subtitle }}</Heading>

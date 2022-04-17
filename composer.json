@@ -9,7 +9,8 @@
     "require": {
         "php": ">=8.0",
         "laravel/nova": "^4.0",
-        "stepanenko3/laravel-system-resources": "^1.0.0"
+        "stepanenko3/laravel-system-resources": "^1.0.0",
+        "spatie/ssl-certificate": "^1.12"
     },
     "autoload": {
         "psr-4": {

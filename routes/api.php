@@ -1,10 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Stepanenko3\NovaCards\Http\Controllers\PercentageController;
 use Stepanenko3\NovaCards\Http\Controllers\ScheduledJobsController;
+use Stepanenko3\NovaCards\Http\Controllers\SslController;
 use Stepanenko3\NovaCards\Http\Controllers\SystemResourcesController;
 use Stepanenko3\NovaCards\Http\Controllers\VersionsController;
+use Stepanenko3\NovaCards\Http\Controllers\WorldClockController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +21,5 @@ use Stepanenko3\NovaCards\Http\Controllers\VersionsController;
 Route::get('system-resources', SystemResourcesController::class);
 Route::get('versions', VersionsController::class);
 Route::get('scheduled-jobs', ScheduledJobsController::class);
+Route::get('ssl', SslController::class);
+Route::get('world-clock', WorldClockController::class);

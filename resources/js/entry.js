@@ -7,4 +7,7 @@ Nova.booting((Vue) => {
     Vue.component('scheduled-jobs-card', require('./components/ScheduledJobs').default);
     Vue.component('percentage-card', require('./components/Percentage').default);
     Vue.component('linkable-card', require('./components/Linkable').default);
+    Vue.component('ssl-card', require('./components/Ssl').default);
+    Vue.component('countdown-card', require('./components/Countdown').default);
+    Vue.component('world-clock-card', require('./components/WorldClock').default);
   });

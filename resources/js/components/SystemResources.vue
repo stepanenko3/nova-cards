@@ -54,7 +54,7 @@
         }),
 
         methods: {
-            success: function(data) {
+            success(data) {
                 this.data = data
             }
         }

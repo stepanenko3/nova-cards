@@ -37,15 +37,19 @@ export default {
                         this.timeout = setTimeout(this.fetch, this.card.pollingTime)
                     }
                 })
-                .catch(response => {
+                .catch(error => {
                     this.loading = false
 
-                    this.error(response);
+                    this.error(error.response.data, error.response, error);
                 })
         },
 
-        success: (data, response) => { },
-        error: (response) => { },
+        success(data, response) {
+
+        },
+        error(data, response, error) {
+
+        },
 
         payload: () => ({})
     }
