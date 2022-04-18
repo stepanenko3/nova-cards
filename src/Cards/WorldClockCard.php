@@ -36,40 +36,33 @@ class WorldClockCard extends Card
         return 'world-clock-card';
     }
 
-    public function timezones($timezones) {
+    public function timezones($timezones)
+    {
 
         return $this->withMeta([
             'timezones' => $timezones
         ]);
     }
 
-    public function timeFormat($timeFormat) {
+    public function timeFormat($timeFormat)
+    {
 
         return $this->withMeta([
             'timeFormat' => $timeFormat
         ]);
     }
 
-    public function updatePeriod($ms = 1000) {
+    public function pollingTime(int $ms = 1000): static
+    {
         return $this->withMeta([
-            'ms' => $ms
+            'pollingTime' => $ms
         ]);
     }
 
-    public function showTitle($value = true) {
-        return $this->withMeta([
-            'showtitle' => $value
-        ]);
-    }
-
-    public function title($title = '') {
+    public function title($title = '')
+    {
         return $this->withMeta([
             'title' => $title
         ]);
-    }
-
-    public function pollingTime(int $ms): static
-    {
-        return $this->withMeta(['pollingTime' => $ms]);
     }
 }

@@ -1,6 +1,6 @@
 <template>
     <LoadingCardWithButton
-        heading="Server Metrics"
+        :heading="card.title || 'Server Metrics'"
         :loading="loading"
         @refresh="fetch"
     >

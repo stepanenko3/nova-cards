@@ -1,7 +1,7 @@
 <template>
     <Card class="h-auto p-4">
         <Heading :level="3" class="flex items-center justify-between mb-2">
-            {{ card.name || 'Countdown' }}
+            {{ card.title || 'Countdown' }}
         </Heading>
         <p class="flex items-center text-4xl mb-4">
             {{ timeLeft }}

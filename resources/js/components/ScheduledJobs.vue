@@ -1,6 +1,6 @@
 <template>
     <LoadingCardWithButton
-        :heading="__('Scheduled Jobs')"
+        :heading="card.title || __('Scheduled Jobs')"
         :loading="loading"
         @refresh="fetch"
     >

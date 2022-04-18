@@ -1,7 +1,7 @@
 <template>
     <Card class="h-auto p-4">
         <div class="w-full px-3 py-3">
-            <Heading v-if="card.showtitle" :level="3" class="flex items-center justify-between mb-2">
+            <Heading v-if="card.title" :level="3" class="flex items-center justify-between mb-2">
                 {{ card.title }}
             </Heading>
 

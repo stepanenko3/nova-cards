@@ -1,6 +1,6 @@
 <template>
     <LoadingCardWithButton
-        heading="System Versions"
+        :heading="card.title || 'System Versions'"
         :loading="loading"
         @refresh="fetch"
     >

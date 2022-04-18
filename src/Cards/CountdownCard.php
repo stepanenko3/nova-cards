@@ -15,16 +15,6 @@ class CountdownCard extends Card
     public $width = '1/3';
 
     /**
-     * Get the component name for the element.
-     *
-     * @return string
-     */
-    public function component()
-    {
-        return 'countdown-card';
-    }
-
-    /**
      * Set the label at the bottom of the timer.
      *
      * @param  string  $label
@@ -37,16 +27,10 @@ class CountdownCard extends Card
         ]);
     }
 
-    /**
-     * Get the displayable name of the metric.
-     *
-     * @param  string  $name
-     * @return string
-     */
-    public function name(string $name)
+    public function title($title = '')
     {
         return $this->withMeta([
-            'name' => $name,
+            'title' => $title
         ]);
     }
 
@@ -61,5 +45,15 @@ class CountdownCard extends Card
         return $this->withMeta([
             'to' => $date->timestamp * 1000
         ]);
+    }
+
+    /**
+     * Get the component name for the element.
+     *
+     * @return string
+     */
+    public function component()
+    {
+        return 'countdown-card';
     }
 }

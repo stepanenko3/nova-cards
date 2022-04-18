@@ -1,7 +1,7 @@
 <template>
     <Card class="h-auto p-4">
         <Heading :level="3" class="flex items-center justify-between mb-2">
-            {{ card.name }}
+            {{ card.title }}
         </Heading>
         <p class="flex items-center text-4xl mb-4">
             <span v-if="percentage !== null">

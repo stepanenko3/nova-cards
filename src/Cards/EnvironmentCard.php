@@ -4,7 +4,7 @@ namespace Stepanenko3\NovaCards\Cards;
 
 use Laravel\Nova\Card;
 
-class VersionsCard extends Card
+class EnvironmentCard extends Card
 {
     /**
      * The width of the card (1/3, 1/2, or full).
@@ -27,6 +27,6 @@ class VersionsCard extends Card
      */
     public function component()
     {
-        return 'versions-card';
+        return 'environment-card';
     }
 }

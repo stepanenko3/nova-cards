@@ -13,6 +13,13 @@ class BlockchainExchangeCard extends Card
      */
     public $width = '1/3';
 
+    public function title($title = '')
+    {
+        return $this->withMeta([
+            'title' => $title
+        ]);
+    }
+
     public function pollingTime(int $ms): static
     {
         return $this->withMeta(['pollingTime' => $ms]);

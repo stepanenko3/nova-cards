@@ -26,6 +26,20 @@ class SystemResourcesCard extends Card
         ]);
     }
 
+    public function title($title = '')
+    {
+        return $this->withMeta([
+            'title' => $title
+        ]);
+    }
+
+    public function pollingTime(int $ms): static
+    {
+        return $this->withMeta([
+            'pollingTime' => $ms,
+        ]);
+    }
+
     /**
      * Get the component name for the element.
      *
@@ -34,10 +48,5 @@ class SystemResourcesCard extends Card
     public function component()
     {
         return 'system-resources-card';
-    }
-
-    public function pollingTime(int $ms): static
-    {
-        return $this->withMeta(['pollingTime' => $ms]);
     }
 }

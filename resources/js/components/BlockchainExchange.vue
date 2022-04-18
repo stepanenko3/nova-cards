@@ -1,6 +1,6 @@
 <template>
     <LoadingCardWithButton
-        heading="Blockchain Exchange Rates"
+        :heading="card.title || 'Blockchain Exchange Rates'"
         :loading="loading"
         @refresh="fetch"
     >
