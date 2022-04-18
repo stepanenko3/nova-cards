@@ -9,11 +9,19 @@
         </p>
 
         <table v-if="data.length" class="w-full text-left table-collapse">
-            <tr v-for="(item, index) in data" :item="item">
-                <td>{{ item.command }}</td>
-                <td>{{ item.expression }}</td>
-                <td>{{ item.humanReadableNextRun }}</td>
-            </tr>
+            <tbody class="align-baseline">
+                <tr v-for="(item, index) in data" :item="item">
+                    <td class="py-2 pr-2 font-bold">
+                        {{ item.command }}
+                    </td>
+                    <td class="p-2">
+                        {{ item.expression }}
+                    </td>
+                    <td class="p-2">
+                        {{ item.humanReadableNextRun }}
+                    </td>
+                </tr>
+            </tbody>
         </table>
     </LoadingCardWithButton>
 </template>

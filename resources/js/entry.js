@@ -10,4 +10,5 @@ Nova.booting((Vue) => {
     Vue.component('ssl-card', require('./components/Ssl').default);
     Vue.component('countdown-card', require('./components/Countdown').default);
     Vue.component('world-clock-card', require('./components/WorldClock').default);
+    Vue.component('blockchain-exchange-card', require('./components/BlockchainExchange').default);
   });

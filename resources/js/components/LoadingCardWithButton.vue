@@ -19,7 +19,9 @@
 
         <Loader v-if="loading" class="mb-4"></Loader>
 
-        <slot v-if="!loading" />
+        <div class="card-overflow">
+            <slot v-if="!loading" />
+        </div>
     </Card>
 </template>
 
@@ -49,3 +51,10 @@
         },
     }
 </script>
+
+<style>
+    .card-overflow {
+        max-height: 250px;
+        overflow-y: auto;
+    }
+</style>
