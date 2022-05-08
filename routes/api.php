@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Stepanenko3\NovaCards\Http\Controllers\BlockchainExchangeController;
+use Stepanenko3\NovaCards\Http\Controllers\CacheController;
 use Stepanenko3\NovaCards\Http\Controllers\EnvironmentController;
 use Stepanenko3\NovaCards\Http\Controllers\ScheduledJobsController;
 use Stepanenko3\NovaCards\Http\Controllers\SslController;
@@ -27,3 +28,11 @@ Route::get('ssl', SslController::class);
 Route::get('world-clock', WorldClockController::class);
 Route::get('blockchain-exchange', BlockchainExchangeController::class);
 Route::get('environment', EnvironmentController::class);
+Route::controller(CacheController::class)
+    ->prefix('cache')
+    ->group(function () {
+        Route::post('flush', 'flush');
+        Route::get('load', 'load');
+        Route::post('', 'forget');
+        Route::get('', 'get');
+    });

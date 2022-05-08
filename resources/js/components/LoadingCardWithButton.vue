@@ -1,5 +1,5 @@
 <template>
-    <Card class="h-auto p-4">
+    <Card class="h-auto p-4" :class="class">
         <Heading v-if="heading" :level="3" class="flex items-center justify-between mb-2">
             <span :class="headingClass">
                 {{ heading }}
@@ -19,7 +19,7 @@
 
         <Loader v-if="loading" class="mb-4"></Loader>
 
-        <div class="card-overflow">
+        <div class="card-overflow" :class="owerflowClass">
             <slot v-if="!loading" />
         </div>
     </Card>
@@ -40,11 +40,19 @@
                 type: Boolean,
                 required: false,
             },
+            class: {
+                type: String,
+                required: false,
+            },
             heading: {
                 type: String,
                 required: true,
             },
             headingClass: {
+                type: String,
+                required: false,
+            },
+            owerflowClass: {
                 type: String,
                 required: false,
             },

@@ -13,4 +13,5 @@ Nova.booting((Vue) => {
     Vue.component('blockchain-exchange-card', require('./components/BlockchainExchange').default);
     Vue.component('environment-card', require('./components/Environment').default);
     Vue.component('embed-card', require('./components/Embed').default);
+    Vue.component('cache-card', require('./components/Cache').default);
   });
