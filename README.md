@@ -25,13 +25,14 @@
 - `php: >=8.0`
 - `laravel/nova: ^4.0`
 
-## Installation and Setup
+## Installation
 
 ```bash
 # Install the package
 composer require stepanenko3/nova-cards
 ```
 
+## Usage
 Register the cards with Nova in the `cards()` method of the your Dashboards class:
 
 ```php
