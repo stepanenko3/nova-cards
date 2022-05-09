@@ -12,6 +12,12 @@
         "stepanenko3/laravel-system-resources": "^1.0.0",
         "spatie/ssl-certificate": "^2.0"
     },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "../nova"
+        }
+    ],
     "autoload": {
         "psr-4": {
             "Stepanenko3\\NovaCards\\": "src/"
