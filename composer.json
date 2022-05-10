@@ -3,7 +3,8 @@
     "description": "A Laravel Nova info cards.",
     "keywords": [
         "laravel",
-        "nova"
+        "nova",
+        "cards"
     ],
     "license": "MIT",
     "require": {
@@ -26,7 +27,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Stepanenko3\\NovaCards\\NovaCardsServiceProvider"
+                "Stepanenko3\\NovaCards\\CardsServiceProvider"
             ]
         }
     },
