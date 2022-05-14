@@ -16,6 +16,8 @@ class NovaCardsServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->config();
+
         $this->app->booted(function () {
             $this->routes();
         });
@@ -50,5 +52,20 @@ class NovaCardsServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton(MarkdownConverter::class, LaravelMarkdownConverter::class);
+    }
+
+    private function config()
+    {
+        if ($this->app->runningInConsole()) {
+            // Publish config
+            $this->publishes([
+                __DIR__ . '/../config/' => config_path(),
+            ], 'config');
+        }
+
+        $this->mergeConfigFrom(
+            __DIR__ . '/../config/nova-cards.php',
+            'nova-cards'
+        );
     }
 }
