@@ -2,8 +2,8 @@
 
 namespace Stepanenko3\NovaCards\Http\Controllers;
 
-use Cache;
-use Http;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Http;
 
 class BlockchainExchangeController
 {

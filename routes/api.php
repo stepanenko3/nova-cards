@@ -8,6 +8,7 @@ use Stepanenko3\NovaCards\Http\Controllers\ScheduledJobsController;
 use Stepanenko3\NovaCards\Http\Controllers\SslController;
 use Stepanenko3\NovaCards\Http\Controllers\SystemResourcesController;
 use Stepanenko3\NovaCards\Http\Controllers\VersionsController;
+use Stepanenko3\NovaCards\Http\Controllers\WeatherController;
 use Stepanenko3\NovaCards\Http\Controllers\WorldClockController;
 
 /*
@@ -36,3 +37,5 @@ Route::controller(CacheController::class)
         Route::post('', 'forget');
         Route::get('', 'get');
     });
+
+Route::get('weather', WeatherController::class);

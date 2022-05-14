@@ -13,6 +13,8 @@ import BlockchainExchange from './cards/BlockchainExchange'
 import Environment from './cards/Environment'
 import Embed from './cards/Embed'
 import Cache from './cards/Cache'
+import Weather from './cards/Weather'
+import Calendar from './cards/Calendar'
 
 Nova.booting((Vue) => {
     Vue.component('LoadingCardWithButton', LoadingCardWithButton);
@@ -30,4 +32,6 @@ Nova.booting((Vue) => {
     Vue.component('environment-card', Environment);
     Vue.component('embed-card', Embed);
     Vue.component('cache-card', Cache);
+    Vue.component('weather-card', Weather);
+    Vue.component('calendar-card', Calendar);
 });
