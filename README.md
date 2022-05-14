@@ -7,18 +7,20 @@
 ## List of Cards
 
 - BlockchainExchangeCard
-- CacheCard.php
-- CountdownCard.php
-- EmbedCard.php
-- EnvironmentCard.php
-- HtmlCard.php
-- LinkableCard.php
-- PercentageCard.php
-- ScheduledJobsCard.php
-- SslCard.php
-- SystemResourcesCard.php
-- VersionsCard.php
-- WorldClockCard.php
+- CacheCard
+- CountdownCard
+- EmbedCard
+- EnvironmentCard
+- HtmlCard
+- LinkableCard
+- PercentageCard
+- ScheduledJobsCard
+- SslCard
+- SystemResourcesCard
+- VersionsCard
+- WorldClockCard
+- WeatherCard
+- CalendarCard
 
 ## Requirements
 
@@ -51,6 +53,8 @@ use Stepanenko3\NovaCards\Cards\SslCard;
 use Stepanenko3\NovaCards\Cards\SystemResourcesCard;
 use Stepanenko3\NovaCards\Cards\VersionsCard;
 use Stepanenko3\NovaCards\Cards\WorldClockCard;
+use Stepanenko3\NovaCards\Cards\WeatherCard;
+use Stepanenko3\NovaCards\Cards\CalendarCard;
 
 public function cards()
 {
@@ -120,6 +124,10 @@ public function cards()
             ->url('https://www.youtube.com/embed/WhWc3b3KhnY'),
 
         (new CacheCard),
+
+        (new WeatherCard),
+
+        (new CalendarCard),
     ];
 }
 ```
