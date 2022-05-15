@@ -21,6 +21,7 @@
 - WorldClockCard
 - WeatherCard
 - CalendarCard
+- NovaReleaseCard
 
 ## Requirements
 
@@ -55,6 +56,7 @@ use Stepanenko3\NovaCards\Cards\VersionsCard;
 use Stepanenko3\NovaCards\Cards\WorldClockCard;
 use Stepanenko3\NovaCards\Cards\WeatherCard;
 use Stepanenko3\NovaCards\Cards\CalendarCard;
+use Stepanenko3\NovaCards\Cards\NovaReleaseCard;
 
 public function cards()
 {
@@ -128,6 +130,8 @@ public function cards()
         (new WeatherCard),
 
         (new CalendarCard),
+
+        (new NovaReleaseCard),
     ];
 }
 ```
