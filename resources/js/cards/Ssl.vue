@@ -48,10 +48,17 @@
         data: () => ({
             data: {},
     		errorMessage: null,
-            endpoint: '/nova-vendor/stepanenko3/nova-cards/ssl',
         }),
 
         methods: {
+            endpoint() {
+                return Nova.request().get('/nova-vendor/stepanenko3/nova-cards/ssl', {
+                    params: {
+                        domain: this.card.domain,
+                    },
+                });
+            },
+
             success(data) {
                 this.data = data
             },
@@ -59,14 +66,6 @@
             error(data) {
         		this.errorMessage = data.error;
             },
-
-            payload() {
-                return {
-                    params: {
-                        domain: this.card.domain,
-                    },
-                };
-            }
         },
     }
 </script>

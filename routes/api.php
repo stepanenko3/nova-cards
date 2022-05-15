@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use Stepanenko3\NovaCards\Http\Controllers\BlockchainExchangeController;
 use Stepanenko3\NovaCards\Http\Controllers\CacheController;
 use Stepanenko3\NovaCards\Http\Controllers\EnvironmentController;
+use Stepanenko3\NovaCards\Http\Controllers\NovaInstalledVersionController;
+use Stepanenko3\NovaCards\Http\Controllers\NovaReleasesController;
 use Stepanenko3\NovaCards\Http\Controllers\ScheduledJobsController;
 use Stepanenko3\NovaCards\Http\Controllers\SslController;
 use Stepanenko3\NovaCards\Http\Controllers\SystemResourcesController;
@@ -39,3 +41,5 @@ Route::controller(CacheController::class)
     });
 
 Route::get('weather', WeatherController::class);
+Route::get('nova-releases', NovaReleasesController::class);
+Route::get('nova-version', NovaInstalledVersionController::class);

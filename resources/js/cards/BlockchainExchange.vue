@@ -51,10 +51,13 @@
 
         data: () => ({
             data: {},
-            endpoint: '/nova-vendor/stepanenko3/nova-cards/blockchain-exchange',
         }),
 
         methods: {
+            endpoint() {
+                return Nova.request().get('/nova-vendor/stepanenko3/nova-cards/blockchain-exchange');
+            },
+
             success(data) {
                 this.data = data
             },
@@ -62,7 +65,7 @@
             formatPrice(value) {
                 let val = (value/1).toFixed(2).replace('.', ',')
                 return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
-            }
+            },
         },
     }
 </script>

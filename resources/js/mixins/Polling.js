@@ -9,11 +9,10 @@ export default {
     data: () => ({
         loading: false,
         timeout: null,
-        endpoint: '',
     }),
 
     mounted() {
-        this.fetch()
+        this.fetch();
     },
 
     methods: {
@@ -26,12 +25,20 @@ export default {
                 clearTimeout(this.timeout);
             }
 
-            Nova.request()
-                .get(this.endpoint, this.payload())
+            const endpoint = this.endpoint();
+            const promise = Array.isArray(endpoint)
+                ? Promise.all(endpoint)
+                : endpoint;
+
+            promise
                 .then(response => {
                     this.loading = false
 
-                    this.success(response.data, response);
+                    const data = Array.isArray(response)
+                        ? response.map(res => res.data)
+                        : response.data;
+
+                    this.success(data, response);
 
                     if (this.card.pollingTime) {
                         this.timeout = setTimeout(this.fetch, this.card.pollingTime)
@@ -40,7 +47,11 @@ export default {
                 .catch(error => {
                     this.loading = false
 
-                    this.error(error.response.data, error.response, error);
+                    const data = Array.isArray(error.response)
+                        ? error.response.map(res => res.data)
+                        : error.response.data;
+
+                    this.error(data, error.response, error);
                 })
         },
 
@@ -50,7 +61,5 @@ export default {
         error(data, response, error) {
 
         },
-
-        payload: () => ({})
     }
 }

@@ -44,7 +44,7 @@
             init() {
                 this.percentage = (this.card.count / this.card.total * 100)
                     .toFixed(this.card.percentagePrecision);
-            }
+            },
         },
     }
 </script>

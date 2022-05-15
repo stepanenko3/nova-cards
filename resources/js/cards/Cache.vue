@@ -211,10 +211,13 @@
             cacheKey: '',
             cacheValue: '',
             cacheSize: '',
-            endpoint: '/nova-vendor/stepanenko3/nova-cards/cache/load',
         }),
 
         methods: {
+            endpoint() {
+                return Nova.request().get('/nova-vendor/stepanenko3/nova-cards/cache/load');
+            },
+
             success(data) {
                 this.cacheKey = data.key;
                 this.cacheValue = data.value;

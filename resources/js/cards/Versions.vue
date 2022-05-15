@@ -46,13 +46,16 @@
 
         data: () => ({
             data: {},
-            endpoint: '/nova-vendor/stepanenko3/nova-cards/versions',
         }),
 
         methods: {
+            endpoint() {
+                return Nova.request().get('/nova-vendor/stepanenko3/nova-cards/versions');
+            },
+
             success(data) {
                 this.data = data
-            }
+            },
         }
     }
 </script>

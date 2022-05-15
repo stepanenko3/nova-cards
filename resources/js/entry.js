@@ -15,6 +15,7 @@ import Embed from './cards/Embed'
 import Cache from './cards/Cache'
 import Weather from './cards/Weather'
 import Calendar from './cards/Calendar'
+import NovaRelease from './cards/NovaRelease'
 
 Nova.booting((Vue) => {
     Vue.component('LoadingCardWithButton', LoadingCardWithButton);
@@ -34,4 +35,5 @@ Nova.booting((Vue) => {
     Vue.component('cache-card', Cache);
     Vue.component('weather-card', Weather);
     Vue.component('calendar-card', Calendar);
+    Vue.component('nova-release-card', NovaRelease);
 });

@@ -23,10 +23,13 @@
 
         data: () => ({
     		env: '...',
-            endpoint: '/nova-vendor/stepanenko3/nova-cards/environment',
         }),
 
         methods: {
+            endpoint() {
+                return Nova.request().get('/nova-vendor/stepanenko3/nova-cards/environment');
+            },
+
             success(data) {
                 this.env = data
             },

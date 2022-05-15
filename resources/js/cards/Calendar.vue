@@ -94,6 +94,6 @@
 
         methods: {
             //
-        }
+        },
     }
 </script>

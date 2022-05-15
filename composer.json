@@ -9,9 +9,10 @@
     "license": "MIT",
     "require": {
         "php": ">=8.0",
+        "erusev/parsedown": "^1.7",
         "laravel/nova": "^4.0",
-        "stepanenko3/laravel-system-resources": "^1.0.0",
-        "spatie/ssl-certificate": "^2.0"
+        "spatie/ssl-certificate": "^2.0",
+        "stepanenko3/laravel-system-resources": "^1.0.0"
     },
     "repositories": [
         {

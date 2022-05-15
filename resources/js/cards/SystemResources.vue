@@ -50,13 +50,16 @@
 
         data: () => ({
             data: {},
-            endpoint: '/nova-vendor/stepanenko3/nova-cards/system-resources',
         }),
 
         methods: {
+            endpoint() {
+                return Nova.request().get('/nova-vendor/stepanenko3/nova-cards/system-resources');
+            },
+
             success(data) {
                 this.data = data
-            }
+            },
         }
     }
 </script>

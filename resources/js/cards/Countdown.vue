@@ -67,7 +67,7 @@
                     window.cancelAnimationFrame(this.showTime);
                     this.timeLeft = '00:00:00:00';
                 }
-            }
-        }
+            },
+        },
     }
 </script>

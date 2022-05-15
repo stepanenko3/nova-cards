@@ -42,21 +42,20 @@
 
         data: () => ({
             data: [],
-            endpoint: '/nova-vendor/stepanenko3/nova-cards/world-clock',
         }),
 
         methods: {
-            success(data) {
-                this.data = data;
-            },
-
-            payload() {
-                return {
+            endpoint() {
+                return Nova.request().get('/nova-vendor/stepanenko3/nova-cards/world-clock', {
                     params: {
                         timezones: this.card.timezones,
                         timeFormat: this.card.timeFormat,
                     },
-                };
+                });
+            },
+
+            success(data) {
+                this.data = data;
             },
         },
     }

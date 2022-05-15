@@ -41,13 +41,16 @@
 
         data: () => ({
             data: [],
-            endpoint: '/nova-vendor/stepanenko3/nova-cards/scheduled-jobs',
         }),
 
         methods: {
+            endpoint() {
+                return Nova.request().get('/nova-vendor/stepanenko3/nova-cards/scheduled-jobs');
+            },
+
             success(data) {
                 this.data = data
-            }
+            },
         },
     }
 </script>
