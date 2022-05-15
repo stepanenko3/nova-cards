@@ -18,10 +18,10 @@
                         {{ index }}
                     </td>
                     <td class="p-2">
-                        {{ item.symbol }} {{ formatPrice(item.buy) }}
+                        {{ formatPrice(item.buy) }}
                     </td>
                     <td class="p-2">
-                        {{ item.symbol }} {{ formatPrice(item.sell) }}
+                        {{ formatPrice(item.sell) }}
                     </td>
                 </tr>
             </tbody>
