@@ -1,3 +1,4 @@
+
 # Cards for Laravel Nova
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/stepanenko3/nova-cards.svg?style=flat-square)](https://packagist.org/packages/stepanenko3/nova-cards)
@@ -39,6 +40,7 @@ composer require stepanenko3/nova-cards
 ```
 
 ## Usage
+
 Register the cards with Nova in the `cards()` method of the your Dashboards class:
 
 ```php
@@ -65,16 +67,16 @@ public function cards()
 {
     return [
         (new WeatherCard)
-            ->pollingTime(60000)
-            ->startPolling(),
+            ->pollingTime(60000) // Optional
+            ->startPolling(), // Optional. Auto start polling
 
         (new CalendarCard),
 
         (new LinkableCard)
-            ->title('Docs')
-            ->subtitle('subtitle')
-            ->url('/')
-            ->target('_blank'),
+            ->title('Docs') // Required
+            ->subtitle('subtitle') // Optional
+            ->url('/') // Required
+            ->target('_blank'), // Default: _self
 
         (new CacheCard),
 
@@ -83,7 +85,7 @@ public function cards()
         (new VersionsCard),
 
         (new ScheduledJobsCard)
-            ->startPolling()
+            ->startPolling() // Optional. Auto start polling
             ->pollingTime(1000)
             ->width('1/2'),
 
@@ -95,52 +97,55 @@ public function cards()
         (new EnvironmentCard),
 
         (new SslCard)
-            ->domain('snotax.com'),
+            ->domain('snotax.com'), // Required
 
         (new SslCard)
-            ->domain('laravel.com'),
+            ->domain('laravel.com'), // Required
 
         (new HtmlCard)
             ->width('1/3')
-            ->html('<h1>Hello World!</h1>'),
+            ->html('<h1>Hello World!</h1>'), // Required
 
         // (new HtmlCard)
         //     ->width('1/3')
-        //     ->markdown('# Hello World!'),
+        //     ->markdown('# Hello World!'), // Required
 
-        // (new HtmlCard)->width('1/3')->view('cards.hello', ['name' => 'World']),
+        // (new HtmlCard)
+        //     ->width('1/3')
+        //     ->view('cards.hello', ['name' => 'World']), // Required
 
         (new PercentageCard)
-            ->name('Demo percents')
-            ->label('$')
-            ->count(33)
-            ->total(1000)
-            ->percentagePrecision(2),
+            ->name('Demo percents') // Optional
+            ->label('$') // Optional
+            ->count(33) // Required
+            ->total(1000) // Required
+            ->percentagePrecision(2), // Default: 2
 
         (new CountdownCard)
-            ->to(now()->addDays(30))
-            ->label('30 Days Later'),
+            ->to(now()->addDays(30)) // Required
+            ->title('30 Days Later') // Optional
+            ->label('30 Days Later'), // Optional
 
         (new WorldClockCard())
-            ->timezones([
+            ->timezones([ // Required
                 'Europe/Kiev',
                 'Asia/Tehran',
                 'America/new_york',
                 'America/los_angeles',
             ])
-            ->timeFormat('H:i:s') //Optional time format default is: 'h:i:s'
-            ->startPolling()
-            ->pollingTime(1000)
-            ->title(__('World Clock')),
+            ->timeFormat('H:i:s') // Optional time format default is: 'H:i:s'
+            ->startPolling() // Optional. Auto start polling
+            ->pollingTime(1000) // Optional
+            ->title(__('World Clock')), // Optional
 
         // A most simple embed
         (new EmbedCard)
-            ->url('https://www.youtube.com/embed/WhWc3b3KhnY'),
+            ->url('https://www.youtube.com/embed/WhWc3b3KhnY'), // Required
 
         // A more complex embed of raw <iframe>...</iframe> HTML
         (new EmbedCard)
-            ->withoutPadding()
-            ->url('https://www.youtube.com/embed/WhWc3b3KhnY'),
+            ->withoutPadding() // Optional remove padding in card
+            ->url('https://www.youtube.com/embed/WhWc3b3KhnY'), // Required
     ];
 }
 ```
@@ -154,6 +159,10 @@ public function cards()
 ## Credits
 
 - [Artem Stepanenko](https://github.com/stepanenko3)
+
+## Contributing
+
+Thank you for considering contributing to this package! Please create a pull request with your contributions with detailed explanation of the changes you are proposing.
 
 ## License
 
