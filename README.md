@@ -61,21 +61,41 @@ use Stepanenko3\NovaCards\Cards\NovaReleaseCard;
 public function cards()
 {
     return [
+        (new WeatherCard)
+            ->pollingTime(60000)
+            ->startPolling(),
+
+        (new CalendarCard),
+
         (new LinkableCard)
             ->title('Docs')
             ->subtitle('subtitle')
             ->url('/')
             ->target('_blank'),
 
-        new SystemResourcesCard,
+        (new CacheCard),
 
-        new VersionsCard,
+        (new SystemResourcesCard),
+
+        (new VersionsCard),
 
         (new ScheduledJobsCard)
+            ->startPolling()
+            ->pollingTime(1000)
             ->width('1/2'),
 
         (new BlockchainExchangeCard)
             ->width('1/2'),
+
+        (new NovaReleaseCard),
+
+        (new EnvironmentCard),
+
+        (new SslCard)
+            ->domain('snotax.com'),
+
+        (new SslCard)
+            ->domain('laravel.com'),
 
         (new HtmlCard)
             ->width('1/3')
@@ -85,12 +105,7 @@ public function cards()
         //     ->width('1/3')
         //     ->markdown('# Hello World!'),
 
-        // (new HtmlCard)
-        //    ->width('1/3')
-        //    ->view('cards.hello', ['name' => 'World']),
-
-        new SslCard,
-        new SslCard('laravel.com'),
+        // (new HtmlCard)->width('1/3')->view('cards.hello', ['name' => 'World']),
 
         (new PercentageCard)
             ->name('Demo percents')
@@ -110,11 +125,10 @@ public function cards()
                 'America/new_york',
                 'America/los_angeles',
             ])
-            ->timeFormat('H:i') //Optional time format default is: 'h:i:s'
-            ->pollingTime(10000) //Optional to set updating time period in millisecond default is 1000 ms = 1 second
+            ->timeFormat('H:i:s') //Optional time format default is: 'h:i:s'
+            ->startPolling()
+            ->pollingTime(1000)
             ->title(__('World Clock')),
-
-        new EnvironmentCard,
 
         // A most simple embed
         (new EmbedCard)
@@ -124,14 +138,6 @@ public function cards()
         (new EmbedCard)
             ->withoutPadding()
             ->url('https://www.youtube.com/embed/WhWc3b3KhnY'),
-
-        (new CacheCard),
-
-        (new WeatherCard),
-
-        (new CalendarCard),
-
-        (new NovaReleaseCard),
     ];
 }
 ```
