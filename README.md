@@ -4,6 +4,9 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/stepanenko3/nova-cards.svg?style=flat-square)](https://packagist.org/packages/stepanenko3/nova-cards)
 [![License](https://poser.pugx.org/stepanenko3/nova-cards/license)](https://packagist.org/packages/stepanenko3/nova-cards)
 
+![screenshot of cards](screenshots/tool1.png)
+![screenshot of cards](screenshots/tool2.png)
+
 ## List of Cards
 
 - BlockchainExchangeCard
