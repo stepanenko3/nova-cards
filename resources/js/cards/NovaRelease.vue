@@ -1,8 +1,12 @@
 <template>
     <LoadingCardWithButton
         :heading="card.title || __('Nova Release')"
+        :card="card"
         :loading="loading"
-        @refresh="fetch"
+        :loadingType="loadingType"
+        :polling="polling"
+        @update:polling="polling = $event"
+        @refresh="fetch('button')"
     >
         <a
             href="https://nova.laravel.com/releases"

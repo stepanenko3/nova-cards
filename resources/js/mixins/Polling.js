@@ -8,22 +8,35 @@ export default {
 
     data: () => ({
         loading: false,
-        timeout: null,
+        polling: false,
+        interval: null,
     }),
 
     mounted() {
         this.fetch();
+
+        if (this.card.pollingStart) {
+            this.polling = true;
+        }
+
+        if (this.card.pollingTime) {
+            this.setupInterval();
+        }
+    },
+
+    beforeUnmount() {
+        clearInterval(this.interval)
     },
 
     methods: {
-        fetch() {
+        fetch(loadingType = 'default') {
+            clearInterval(this.interval);
+
             if (this.loading)
                 return;
 
             this.loading = true
-            if (this.timeout) {
-                clearTimeout(this.timeout);
-            }
+            this.loadingType = loadingType;
 
             const endpoint = this.endpoint();
             const promise = Array.isArray(endpoint)
@@ -39,10 +52,6 @@ export default {
                         : response.data;
 
                     this.success(data, response);
-
-                    if (this.card.pollingTime) {
-                        this.timeout = setTimeout(this.fetch, this.card.pollingTime)
-                    }
                 })
                 .catch(error => {
                     this.loading = false
@@ -53,13 +62,23 @@ export default {
 
                     this.error(data, error.response, error);
                 })
+                .finally(() => this.setupInterval())
         },
 
         success(data, response) {
 
         },
+
         error(data, response, error) {
 
+        },
+
+        setupInterval() {
+            this.interval = setInterval(() => {
+                if (this.polling && !this.loading) {
+                    this.fetch('polling');
+                }
+            }, this.card.pollingTime);
         },
     }
 }

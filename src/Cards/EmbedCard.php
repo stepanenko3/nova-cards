@@ -10,7 +10,6 @@ use Laravel\Nova\Card;
  */
 class EmbedCard extends Card
 {
-
     /**
      * @param $component
      */

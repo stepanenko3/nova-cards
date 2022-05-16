@@ -10,7 +10,6 @@ use Laravel\Nova\Card;
  */
 class CalendarCard extends Card
 {
-
     /**
      * @param $component
      */

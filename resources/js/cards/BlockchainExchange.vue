@@ -1,8 +1,12 @@
 <template>
     <LoadingCardWithButton
         :heading="card.title || 'Blockchain Exchange Rates'"
+        :card="card"
         :loading="loading"
-        @refresh="fetch"
+        :loadingType="loadingType"
+        :polling="polling"
+        @update:polling="polling = $event"
+        @refresh="fetch('button')"
     >
         <table v-if="data" class="w-full text-left table-collapse">
             <thead class="bg-white dark:bg-gray-800 sticky-table-header">

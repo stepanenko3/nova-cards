@@ -1,8 +1,12 @@
 <template>
     <LoadingCardWithButton
         :heading="card.title || 'Server Metrics'"
+        :card="card"
         :loading="loading"
-        @refresh="fetch"
+        :loadingType="loadingType"
+        :polling="polling"
+        @update:polling="polling = $event"
+        @refresh="fetch('button')"
     >
         <table v-if="data && data.disk_space" class="w-full text-left table-collapse">
             <tbody class="align-baseline">

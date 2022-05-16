@@ -1,8 +1,12 @@
 <template>
     <LoadingCardWithButton
         :heading="card.title || __('Scheduled Jobs')"
+        :card="card"
         :loading="loading"
-        @refresh="fetch"
+        :loadingType="loadingType"
+        :polling="polling"
+        @update:polling="polling = $event"
+        @refresh="fetch('button')"
     >
         <p v-if="!loading && !data.length">
             {{ __('No Data') }}

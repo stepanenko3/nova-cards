@@ -3,9 +3,12 @@
 namespace Stepanenko3\NovaCards\Cards;
 
 use Laravel\Nova\Card;
+use Stepanenko3\NovaCards\Traits\PollingTrait;
 
 class WorldClockCard extends Card
 {
+    use PollingTrait;
+
     /**
      * The width of the card (1/3, 1/2, or full).
      *
@@ -20,10 +23,7 @@ class WorldClockCard extends Card
     public function __construct($component = null)
     {
         parent::__construct($component);
-
-        $this->withMeta([
-            'pollingTime' => 5000,
-        ]);
+        $this->initPolling();
     }
 
     /**
@@ -49,13 +49,6 @@ class WorldClockCard extends Card
 
         return $this->withMeta([
             'timeFormat' => $timeFormat
-        ]);
-    }
-
-    public function pollingTime(int $ms = 1000): static
-    {
-        return $this->withMeta([
-            'pollingTime' => $ms
         ]);
     }
 

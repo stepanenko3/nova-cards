@@ -3,9 +3,12 @@
 namespace Stepanenko3\NovaCards\Cards;
 
 use Laravel\Nova\Card;
+use Stepanenko3\NovaCards\Traits\PollingTrait;
 
 class SslCard extends Card
 {
+    use PollingTrait;
+
     /**
      * The width of the card (1/3, 1/2, or full).
      *
@@ -13,11 +16,24 @@ class SslCard extends Card
      */
     public $width = '1/3';
 
-    public function __construct(string $domain = null)
+    /**
+     * Construct a new Card with a predefined theme.
+     *
+     * @param  string|null  $component
+     * @return void
+     */
+    public function __construct($component = null)
+    {
+        parent::__construct($component);
+
+        $this->initPolling();
+    }
+
+    public function domain(string $domain = null)
     {
         $domain = $domain ?: request()->getHost();
 
-        $this->withMeta(compact('domain'));
+        return $this->withMeta(compact('domain'));
     }
 
     /**

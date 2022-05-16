@@ -1,11 +1,15 @@
 <template>
     <div class="flex-grow flex flex-col">
         <LoadingCardWithButton
+            :heading="card.title || (card.defaultDriver + ' ' + __('Cache'))"
             class="flex-grow flex flex-col"
             owerflowClass="flex-grow flex flex-col"
-            :heading="card.title || (card.defaultDriver + ' ' + __('Cache'))"
+            :card="card"
             :loading="loading"
-            @refresh="fetch"
+            :loadingType="loadingType"
+            :polling="polling"
+            @update:polling="polling = $event"
+            @refresh="fetch('button')"
         >
             <div class="mb-3 flex-grow">
                 <template v-if="cacheSize">

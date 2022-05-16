@@ -3,9 +3,12 @@
 namespace Stepanenko3\NovaCards\Cards;
 
 use Laravel\Nova\Card;
+use Stepanenko3\NovaCards\Traits\PollingTrait;
 
 class BlockchainExchangeCard extends Card
 {
+    use PollingTrait;
+
     /**
      * The width of the card (1/3, 1/2, or full).
      *
@@ -13,16 +16,23 @@ class BlockchainExchangeCard extends Card
      */
     public $width = '1/3';
 
+    /**
+     * Construct a new Card with a predefined theme.
+     *
+     * @param  string|null  $component
+     * @return void
+     */
+    public function __construct($component = null)
+    {
+        parent::__construct($component);
+        $this->initPolling();
+    }
+
     public function title($title = '')
     {
         return $this->withMeta([
             'title' => $title
         ]);
-    }
-
-    public function pollingTime(int $ms): static
-    {
-        return $this->withMeta(['pollingTime' => $ms]);
     }
 
     /**

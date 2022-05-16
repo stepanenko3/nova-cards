@@ -1,8 +1,12 @@
 <template>
     <LoadingCardWithButton
         :heading="res && res.sys ? `${res.name}, ${res.sys.country}` : 'Weather'"
+        :card="card"
         :loading="loading"
-        @refresh="fetch"
+        :loadingType="loadingType"
+        :polling="polling"
+        @update:polling="polling = $event"
+        @refresh="fetch('button')"
     >
         <template v-if="res && res.sys">
             <div class="flex items-center mb-2">
@@ -12,6 +16,7 @@
                     :alt="res.weather[0].icon"
                     width="50"
                     height="50"
+                    v-tooltip="res.weather[0].description.charAt(0).toUpperCase() + res.weather[0].description.substring(1)"
                 />
 
                 <div class="text-xl font-bold">

@@ -1,8 +1,12 @@
 <template>
     <LoadingCardWithButton
         :heading="card.title || __('Current Environment')"
+        :card="card"
         :loading="loading"
-        @refresh="fetch"
+        :loadingType="loadingType"
+        :polling="polling"
+        @update:polling="polling = $event"
+        @refresh="fetch('button')"
     >
         <Heading level="1" class="text-center font-bold text-xl">{{ env }}</Heading>
     </LoadingCardWithButton>

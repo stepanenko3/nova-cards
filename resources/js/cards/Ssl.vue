@@ -2,8 +2,12 @@
     <LoadingCardWithButton
         :heading="card.domain + ' - ' + (data.is_valid ? 'Valid Certificate' : 'Invalid Certificate')"
         :headingClass="{ 'text-green-500' : data.is_valid, 'text-red-500' : ! data.is_valid }"
+        :card="card"
         :loading="loading"
-        @refresh="fetch"
+        :loadingType="loadingType"
+        :polling="polling"
+        @update:polling="polling = $event"
+        @refresh="fetch('button')"
     >
         <table v-if="!errorMessage" class="w-full text-left table-collapse">
             <tbody class="align-baseline">
