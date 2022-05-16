@@ -1,6 +1,6 @@
 <template>
     <LoadingCardWithButton
-        :heading="card.title || 'Blockchain Exchange Rates'"
+        :heading="card.title || 'Blockchain Rates'"
         :card="card"
         :loading="loading"
         :loadingType="loadingType"

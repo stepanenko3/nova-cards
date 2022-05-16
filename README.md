@@ -4,8 +4,8 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/stepanenko3/nova-cards.svg?style=flat-square)](https://packagist.org/packages/stepanenko3/nova-cards)
 [![License](https://poser.pugx.org/stepanenko3/nova-cards/license)](https://packagist.org/packages/stepanenko3/nova-cards)
 
-![screenshot of cards](screenshots/tool1.png)
-![screenshot of cards](screenshots/tool2.png)
+![screenshot of cards](screenshots/cards.png)
+![screenshot of cards](screenshots/cards-2.png)
 
 ## List of Cards
 
@@ -144,6 +144,12 @@ public function cards()
     ];
 }
 ```
+
+## Screenshots
+
+![screenshot of cards](screenshots/cards-dark.png)
+![screenshot of cards](screenshots/cards-2-dark.png)
+![screenshot of cards](screenshots/cards-mobile.png)
 
 ## Credits
 

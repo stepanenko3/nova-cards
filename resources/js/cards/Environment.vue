@@ -8,7 +8,23 @@
         @update:polling="polling = $event"
         @refresh="fetch('button')"
     >
-        <Heading level="1" class="text-center font-bold text-xl">{{ env }}</Heading>
+        <div class="flex items-center w-full">
+            <Icon
+                width="30"
+                height="30"
+                :type="env !== 'production' ? 'exclamation-circle' : 'check-circle'"
+                class="mr-4"
+                :class="{
+                    'text-yellow-500': env !== 'production',
+                    'text-green-500': env === 'production',
+                }"
+            />
+
+            <Heading
+                level="3"
+                v-text="env"
+            />
+        </div>
     </LoadingCardWithButton>
 </template>
 

@@ -1,7 +1,7 @@
 <template>
     <Card class="h-auto p-4" :class="class">
         <Heading v-if="heading" :level="3" class="flex items-center justify-between mb-2">
-            <span :class="headingClass">
+            <span :class="headingClass" class="word-wrap: break-word">
                 {{ heading }}
             </span>
 

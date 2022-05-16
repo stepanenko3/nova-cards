@@ -15,7 +15,7 @@
         <table v-if="data.length" class="w-full text-left table-collapse">
             <tbody class="align-baseline">
                 <tr v-for="(item, index) in data" :item="item">
-                    <td class="py-2 pr-2 font-bold">
+                    <td class="py-2 pr-2 font-bold" style="word-wrap: anywhere">
                         {{ item.command }}
                     </td>
                     <td class="p-2">
