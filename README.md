@@ -39,8 +39,6 @@
 composer require stepanenko3/nova-cards
 ```
 
-## Usage
-
 Register the cards with Nova in the `cards()` method of the your Dashboards class:
 
 ```php
@@ -106,13 +104,13 @@ public function cards()
             ->width('1/3')
             ->html('<h1>Hello World!</h1>'), // Required
 
-        // (new HtmlCard)
-        //     ->width('1/3')
-        //     ->markdown('# Hello World!'), // Required
+        (new HtmlCard)
+            ->width('1/3')
+            ->markdown('# Hello World!'), // Required
 
-        // (new HtmlCard)
-        //     ->width('1/3')
-        //     ->view('cards.hello', ['name' => 'World']), // Required
+        (new HtmlCard)
+            ->width('1/3')
+            ->view('cards.hello', ['name' => 'World']), // Required
 
         (new PercentageCard)
             ->name('Demo percents') // Optional
@@ -149,6 +147,10 @@ public function cards()
     ];
 }
 ```
+
+## Usage
+
+Open your Dashboard in your Nova app to see the cards.
 
 ## Screenshots
 
