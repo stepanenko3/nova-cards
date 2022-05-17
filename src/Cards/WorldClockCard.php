@@ -24,9 +24,9 @@ class WorldClockCard extends Card
     {
         parent::__construct($component);
         $this->initPolling();
-        $this->with([
+        $this->withMeta([
             'timeFormat' => 'H:i:s',
-        ])
+        ]);
     }
 
     /**
