@@ -95,7 +95,7 @@ public function cards()
         (new EnvironmentCard),
 
         (new SslCard)
-            ->domain('snotax.com'), // Required
+            ->domain('test.com'), // Required
 
         (new SslCard)
             ->domain('laravel.com'), // Required
