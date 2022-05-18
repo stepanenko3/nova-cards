@@ -2,7 +2,7 @@
 
 namespace Stepanenko3\NovaCards\Http\Controllers;
 
-use DB;
+use Illuminate\Support\Facades\DB;
 use Laravel\Nova\Nova;
 
 class VersionsController
