@@ -12,21 +12,13 @@
         "erusev/parsedown": "^1.7",
         "laravel/nova": "^4.0",
         "spatie/ssl-certificate": "^2.0",
-        "stepanenko3/laravel-system-resources": "^1.0.0"
+        "stepanenko3/laravel-system-resources": "*",
+        "stepanenko3/laravel-helpers": "*"
     },
-    "repositories": [
-        {
-            "type": "path",
-            "url": "../nova"
-        }
-    ],
     "autoload": {
         "psr-4": {
             "Stepanenko3\\NovaCards\\": "src/"
-        },
-        "files": [
-            "src/helpers.php"
-        ]
+        }
     },
     "extra": {
         "laravel": {
