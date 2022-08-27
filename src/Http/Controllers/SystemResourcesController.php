@@ -3,7 +3,7 @@
 namespace Stepanenko3\NovaCards\Http\Controllers;
 
 use Illuminate\Routing\Controller;
-use SystemResources;
+use Stepanenko3\LaravelSystemResources\Facades\SystemResources;
 
 class SystemResourcesController extends Controller
 {
@@ -22,13 +22,29 @@ class SystemResourcesController extends Controller
 
         return [
             'disk_space' => [
-                'total' => readableMemory($diskTotal, true, false),
-                'used' => readableMemory($diskUsed, true, false),
+                'total' => formatMemory(
+                    size: $diskTotal,
+                    level: 0,
+                    asArray: true,
+                ),
+                'used' => formatMemory(
+                    size: $diskUsed,
+                    level: 0,
+                    asArray: true,
+                ),
                 'use_percentage' => round($disk, 1),
             ],
             'memory_usage' => [
-                'total' => readableMemory($ramTotal, false, false),
-                'used' => readableMemory($ramUsed, false, false),
+                'total' => formatMemory(
+                    size: $ramTotal,
+                    level: 1,
+                    asArray: true,
+                ),
+                'used' => formatMemory(
+                    size: $ramUsed,
+                    level: 1,
+                    asArray: true,
+                ),
                 'use_percentage' => round($ram, 1),
             ],
             'cpu_usage' => [
