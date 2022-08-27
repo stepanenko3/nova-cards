@@ -25,21 +25,29 @@ class SystemResourcesController extends Controller
                 'total' => formatMemory(
                     size: $diskTotal,
                     level: 0,
+                    asArray: true,
+                    base: 1024,
                 ),
                 'used' => formatMemory(
                     size: $diskUsed,
                     level: 0,
+                    asArray: true,
+                    base: 1024,
                 ),
                 'use_percentage' => round($disk, 1),
             ],
             'memory_usage' => [
                 'total' => formatMemory(
-                    size: $ramTotal,
-                    level: 1,
+                    size: $ramTotal * 1024,
+                    level: 0,
+                    asArray: true,
+                    base: 1024,
                 ),
                 'used' => formatMemory(
-                    size: $ramUsed,
-                    level: 1,
+                    size: $ramUsed * 1024,
+                    level: 0,
+                    asArray: true,
+                    base: 1024,
                 ),
                 'use_percentage' => round($ram, 1),
             ],
