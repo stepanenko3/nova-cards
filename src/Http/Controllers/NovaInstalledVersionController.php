@@ -1,7 +1,7 @@
 <?php
 
 namespace Stepanenko3\NovaCards\Http\Controllers;
-
+use Illuminate\Support\Str;
 use Illuminate\Routing\Controller;
 use Laravel\Nova\Nova;
 
