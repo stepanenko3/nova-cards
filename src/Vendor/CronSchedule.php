@@ -147,7 +147,7 @@ class CronSchedule
 	 *                'hasInterval'        TRUE if a range is specified. FALSE otherwise
 	 *                'interval'            The interval if a range is specified.
 	 */
-	final private function cronInterpret($specification, $rangeMin, $rangeMax, $namedItems, $errorName)
+	private function cronInterpret($specification, $rangeMin, $rangeMax, $namedItems, $errorName)
 	{
 
 		if((!is_string($specification)) && (!(is_int($specification))))
@@ -266,7 +266,7 @@ class CronSchedule
 	//                [50] => 1
 	//
 
-	final private function cronCreateItems($cronInterpreted)
+	private function cronCreateItems($cronInterpreted)
 	{
 		$items = array();
 
@@ -296,7 +296,7 @@ class CronSchedule
 	// Result:        An array with indices 0-4 holding the actual interpreted values for $minute, $hour, $day, $month and $year.
 	//
 
-	final private function dtFromParameters($time = FALSE)
+	 private function dtFromParameters($time = FALSE)
 	{
 		if($time === FALSE)
 		{
@@ -316,7 +316,7 @@ class CronSchedule
 		}
 	}
 
-	final private function dtAsString($arrDt)
+	private function dtAsString($arrDt)
 	{
 		if($arrDt === FALSE)
 			return FALSE;
@@ -337,7 +337,7 @@ class CronSchedule
 	// Result:        TRUE if the schedule matches the specified datetime. FALSE otherwise.
 	//
 
-	final public function match($time = FALSE)
+	public function match($time = FALSE)
 	{
 
 		// Convert parameters to array datetime
@@ -478,7 +478,7 @@ class CronSchedule
 	// Result:        FALSE if current did not overflow (reset back to the earliest possible value). TRUE if it did.
 	//
 
-	final private function advanceItem($arrItems, $rangeMin, $rangeMax, & $current)
+	private function advanceItem($arrItems, $rangeMin, $rangeMax, & $current)
 	{
 
 		// Advance pointer
@@ -515,7 +515,7 @@ class CronSchedule
 	//                $afterItem            The highest index that is to be skipped.
 	//
 
-	final private function getEarliestItem($arrItems, $afterItem = FALSE, $allowOverflow = TRUE)
+	private function getEarliestItem($arrItems, $afterItem = FALSE, $allowOverflow = TRUE)
 	{
 
 		// If no filter is specified, return the earliest listed item.
@@ -656,7 +656,7 @@ class CronSchedule
 	// Result:        FALSE if current did not overflow (reset back to the highest possible value). TRUE if it did.
 	//
 
-	final private function recedeItem($arrItems, $rangeMin, $rangeMax, & $current)
+	private function recedeItem($arrItems, $rangeMin, $rangeMax, & $current)
 	{
 
 		// Recede pointer
@@ -693,7 +693,7 @@ class CronSchedule
 	//                $beforeItem            The lowest index that is to be skipped.
 	//
 
-	final private function getLatestItem($arrItems, $beforeItem = FALSE, $allowOverflow = TRUE)
+	private function getLatestItem($arrItems, $beforeItem = FALSE, $allowOverflow = TRUE)
 	{
 
 		// If no filter is specified, return the latestlisted item.
@@ -735,7 +735,7 @@ class CronSchedule
 	// Result:
 	//
 
-	final private function getClass($spec)
+	private function getClass($spec)
 	{
 		if(!$this->classIsSpecified($spec))        return '0';
 		if($this->classIsSingleFixed($spec))    return '1';
@@ -754,7 +754,7 @@ class CronSchedule
 	// Result:
 	//
 
-	final private function classIsSpecified($spec)
+	private function classIsSpecified($spec)
 	{
 		if($spec['elements'][0]['hasInterval'] == FALSE)            return TRUE;
 		if($spec['elements'][0]['number1'] != $spec['rangeMin'])    return TRUE;
@@ -775,12 +775,12 @@ class CronSchedule
 	// Result:
 	//
 
-	final private function classIsSingleFixed($spec)
+	private function classIsSingleFixed($spec)
 	{
 		return (count($spec['elements']) == 1) && (!$spec['elements'][0]['hasInterval']);
 	}
 
-	final private function initLang($language = 'en')
+	private function initLang($language = 'en')
 	{
 		switch($language)
 		{
@@ -1024,12 +1024,12 @@ class CronSchedule
 		}
 	}
 
-	final private function natlangPad2($number)
+	private function natlangPad2($number)
 	{
 		return (strlen($number) == 1 ? '0' : '').$number;
 	}
 
-	final private function natlangApply($id, $p1 = FALSE, $p2 = FALSE, $p3 = FALSE, $p4 = FALSE, $p5 = FALSE, $p6 = FALSE)
+	private function natlangApply($id, $p1 = FALSE, $p2 = FALSE, $p3 = FALSE, $p4 = FALSE, $p5 = FALSE, $p6 = FALSE)
 	{
 		$txt = $this->_lang[$id];
 
@@ -1054,7 +1054,7 @@ class CronSchedule
 	// Result:
 	//
 
-	final private function natlangRange($spec, $entryFunction, $p1 = FALSE)
+	private function natlangRange($spec, $entryFunction, $p1 = FALSE)
 	{
 		$arrIntervals = array();
 		foreach($spec['elements'] as $elem)
@@ -1073,7 +1073,7 @@ class CronSchedule
 	// Description:    Converts an entry from the minute specification to natural language.
 	//
 
-	final private function natlangElementMinute($elem)
+	private function natlangElementMinute($elem)
 	{
 		if(!$elem['hasInterval'])
 		{
@@ -1094,7 +1094,7 @@ class CronSchedule
 	// Description:    Converts an entry from the hour specification to natural language.
 	//
 
-	final private function natlangElementHour($elem, $asBetween)
+	private function natlangElementHour($elem, $asBetween)
 	{
 		if(!$elem['hasInterval'])
 		{
@@ -1117,7 +1117,7 @@ class CronSchedule
 	// Description:    Converts an entry from the day of month specification to natural language.
 	//
 
-	final private function natlangElementDayOfMonth($elem)
+	private function natlangElementDayOfMonth($elem)
 	{
 		if(!$elem['hasInterval'])
 			return $this->natlangApply('elemDOM: the_X', $this->natlangApply('ordinal: '.$elem['number1']));
@@ -1135,7 +1135,7 @@ class CronSchedule
 	// Description:    Converts an entry from the month specification to natural language.
 	//
 
-	final private function natlangElementMonth($elem)
+	private function natlangElementMonth($elem)
 	{
 		if(!$elem['hasInterval'])
 			return $this->natlangApply('elemMonth: every_X', $this->natlangApply('month: '.$elem['number1']));
@@ -1153,7 +1153,7 @@ class CronSchedule
 	// Description:    Converts an entry from the year specification to natural language.
 	//
 
-	final private function natlangElementYear($elem)
+	private function natlangElementYear($elem)
 	{
 		if(!$elem['hasInterval'])
 			return $elem['number1'];
