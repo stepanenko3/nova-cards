@@ -33,6 +33,6 @@ class VersionsController
 
         $results = DB::select(DB::raw("select version()"));
 
-        return config('database.default') . ' ' . $results[0]->version;
+        return config('database.default') . ' ' . ((array) $results[0])['version()'];
     }
 }

@@ -23,7 +23,15 @@ class WeatherCard extends Card
     public function __construct($component = null)
     {
         parent::__construct($component);
+
         $this->initPolling();
+    }
+
+    public function city(string $cityName): self
+    {
+        return $this->withMeta([
+            'city' => $cityName,
+        ]);
     }
 
     /**

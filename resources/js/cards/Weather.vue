@@ -93,7 +93,13 @@
 
         methods: {
             endpoint() {
-                return Nova.request().get('/nova-vendor/stepanenko3/nova-cards/weather');
+                const queryString = new URLSearchParams({
+                    q: this.card.city,
+                }).toString();
+
+                console.log(queryString);
+
+                return Nova.request().get('/nova-vendor/stepanenko3/nova-cards/weather' + (queryString ? `?${queryString}`  :''));
             },
 
             success(data) {

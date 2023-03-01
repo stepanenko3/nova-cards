@@ -107,10 +107,6 @@ class CacheController extends Controller
                 $sizeInBytes = self::getFolderSizeInBytes($path);
                 break;
 
-            case 'redis':
-                print_r(Redis::ping());
-                break;
-
             default:
                 return true;
         }
