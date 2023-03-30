@@ -9,6 +9,10 @@
                         :alt="card.user_name"
                     />
                 </div>
+                <div v-else class="flex-shrink-0 text-3xl h-20 w-20 rounded-full bg-primary-500 tracking-wide text-white flex items-center justify-center">
+                    {{  getInitials(card.user_name) }}
+
+                </div>
                 <div class="text-left">
                     <p
                         class="text-sm font-medium text-gray-600 dark:text-gray-400"
@@ -16,7 +20,7 @@
                         {{ card.message ?? __("Welcome back,") }}
                     </p>
                     <p
-                        class="font-bold text-gray-900 dark:text-gray-300 text-xl"
+                        class="font-bold text-xl"
                     >
                         {{ card.user_name }}
                     </p>
@@ -57,16 +61,12 @@
                 </div>
             </div>
             <div v-if="card.buttons.length > 0" class="space-y-4 flex flex-col">
-                <Link
+                <OutlineButtonInertiaLink
                     v-for="button in card.buttons"
                     :href="button.target"
-                    :class="
-                        button.style ??
-                        'flex justify-center items-center px-4 py-2 border border-gray-300 dark:border-gray-800 shadow-sm dark:shadow-inner text-sm font-medium rounded-md text-gray-700 dark:text-gray-300 bg-white hover:bg-gray-50 dark:bg-gray-700 hover:dark:bg-gray-600'
-                    "
                 >
                     {{ button.name }}
-                </Link>
+                </OutlineButtonInertiaLink>
             </div>
         </div>
 
@@ -125,6 +125,10 @@ onBeforeUnmount(() => {
     observer.value.disconnect();
     observer.value = null;
 });
+
+function getInitials(name) {
+    return name.match(/(\b\S)?/g).join("").match(/(^\S|\S$)?/g).join("").toUpperCase();
+}
 </script>
 
 <style>
