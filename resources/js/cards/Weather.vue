@@ -95,6 +95,7 @@
             endpoint() {
                 const queryString = new URLSearchParams({
                     q: this.card.city,
+                    lang: this.card?.lang || '',
                 }).toString();
 
                 return Nova.request().get('/nova-vendor/stepanenko3/nova-cards/weather' + (queryString ? `?${queryString}`  :''));

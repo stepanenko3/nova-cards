@@ -14,13 +14,14 @@ class WeatherController
             'nova-weather-card:' . implode('-', [
                 $request->input('q', 'Kiev'),
                 $request->input('units', 'metric'),
-                config('app.locale'),
+                $request->input('lang', config('app.locale')),
             ]),
             10,
             fn () => Http::get('https://api.openweathermap.org/data/2.5/weather', [
                 'q' => $request->input('q', 'Kiev'),
                 'appid' => config('nova-cards.open_weather_token'),
                 'units' => $request->input('units', 'metric'),
+                'lang' => $request->input('lang', config('app.locale')),
             ])->json(),
         );
 

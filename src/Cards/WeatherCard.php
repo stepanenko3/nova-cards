@@ -34,6 +34,13 @@ class WeatherCard extends Card
         ]);
     }
 
+    public function lang(string $lang): self
+    {
+        return $this->withMeta([
+            'lang' => $lang,
+        ]);
+    }
+
     /**
      * Get the component name for the element.
      *
