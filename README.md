@@ -26,6 +26,7 @@
 - WeatherCard
 - CalendarCard
 - NovaReleaseCard
+- GreetingCard
 
 ## Requirements
 
@@ -44,6 +45,7 @@ Register the cards with Nova in the `cards()` method of the your Dashboards clas
 ```php
 // in app/Nova/Dashborads/Cards.php
 
+use Stepanenko3\NovaCards\Cards\GreetingCard;
 use Stepanenko3\NovaCards\Cards\BlockchainExchangeCard;
 use Stepanenko3\NovaCards\Cards\CacheCard;
 use Stepanenko3\NovaCards\Cards\CountdownCard;
@@ -63,7 +65,31 @@ use Stepanenko3\NovaCards\Cards\NovaReleaseCard;
 
 public function cards()
 {
+    $user = auth()->user();
+
     return [
+        GreeterCard::make()
+            ->user(
+                name: $user->name,
+                title: 'Admin',
+            )
+            ->message(
+                text: 'Welcome back,',
+            )
+            ->button(
+                name: 'Profile',
+                target: '/nova/resources/users/' . $user->id,
+            )
+            ->button(
+                name: 'Users',
+                target: '/nova/resources/users',
+            )
+            ->avatar(
+                url: $user->avatar
+                    ? storage_url($user->avatar, 'public')
+                    :  'https://ui-avatars.com/api/?size=300&color=7F9CF5&background=EBF4FF&name=' . $user->name
+            ),
+
         (new WeatherCard)
             ->pollingTime(60000) // Optional
             ->startPolling(), // Optional. Auto start polling
