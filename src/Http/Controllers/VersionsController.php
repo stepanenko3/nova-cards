@@ -31,7 +31,8 @@ class VersionsController
             return 'Unkown';
         }
 
-        $results = DB::select(DB::raw("select version()"));
+
+        $results = DB::select("select version()");
 
         return config('database.default') . ' ' . ((array) $results[0])['version()'];
     }
