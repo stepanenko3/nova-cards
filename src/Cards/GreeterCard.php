@@ -2,10 +2,13 @@
 
 namespace Stepanenko3\NovaCards\Cards;
 
+use Illuminate\Support\Traits\Conditionable;
 use Laravel\Nova\Card;
 
 class GreeterCard extends Card
 {
+    use Conditionable;
+
     public array $buttons = [];
 
     public $width = '1/3';
@@ -16,6 +19,7 @@ class GreeterCard extends Card
 
         $this->withMeta([
             'user_name' => auth()->user()?->name ?? __('Dear User'),
+            'buttons' => $this->buttons,
         ]);
     }
 
