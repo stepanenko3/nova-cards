@@ -1,4 +1,5 @@
 import LoadingCardWithButton from './components/LoadingCardWithButton'
+import WorldClockTimer from './components/WorldClockTimer'
 //
 import SystemResources from './cards/SystemResources'
 import Versions from './cards/Versions'
@@ -20,6 +21,7 @@ import Greeter from './cards/Greeter'
 
 Nova.booting((Vue) => {
     Vue.component('LoadingCardWithButton', LoadingCardWithButton);
+    Vue.component('WorldClockTimer', WorldClockTimer);
     //
     Vue.component('system-resources-card', SystemResources);
     Vue.component('versions-card', Versions);

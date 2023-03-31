@@ -157,9 +157,6 @@ public function cards()
                 'America/new_york',
                 'America/los_angeles',
             ])
-            ->timeFormat('H:i:s') // Optional time format default is: 'H:i:s'
-            ->startPolling() // Optional. Auto start polling
-            ->pollingTime(1000) // Optional
             ->title(__('World Clock')), // Optional
 
         // A most simple embed
