@@ -2989,7 +2989,8 @@ __webpack_require__.r(__webpack_exports__);
     return {
       loading: false,
       polling: false,
-      interval: null
+      interval: null,
+      killed: false
     };
   },
   mounted: function mounted() {
@@ -3004,14 +3005,18 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   beforeUnmount: function beforeUnmount() {
-    clearInterval(this.interval);
+    this.killed = true;
   },
   methods: {
     fetch: function fetch() {
       var _this = this;
 
       var loadingType = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'default';
-      clearInterval(this.interval);
+
+      if (loadingType !== 'polling') {
+        clearInterval(this.interval);
+      }
+
       if (this.loading) return;
       this.loading = true;
       this.loadingType = loadingType;
@@ -3032,7 +3037,9 @@ __webpack_require__.r(__webpack_exports__);
 
         _this.error(data, error.response, error);
       })["finally"](function () {
-        return _this.setupInterval();
+        if (loadingType !== 'polling') {
+          _this.setupInterval();
+        }
       });
     },
     success: function success(data, response) {},
@@ -3040,7 +3047,19 @@ __webpack_require__.r(__webpack_exports__);
     setupInterval: function setupInterval() {
       var _this2 = this;
 
+      clearInterval(this.interval);
+
+      if (this.killed) {
+        return;
+      }
+
       this.interval = setInterval(function () {
+        if (_this2.killed) {
+          clearInterval(_this2.interval);
+          console.log('ty to kill', _this2.interval);
+          return;
+        }
+
         if (_this2.polling && !_this2.loading) {
           _this2.fetch('polling');
         }

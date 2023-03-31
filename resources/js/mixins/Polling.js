@@ -10,6 +10,7 @@ export default {
         loading: false,
         polling: false,
         interval: null,
+        killed: false,
     }),
 
     mounted() {
@@ -25,12 +26,14 @@ export default {
     },
 
     beforeUnmount() {
-        clearInterval(this.interval)
+        this.killed = true;
     },
 
     methods: {
         fetch(loadingType = 'default') {
-            clearInterval(this.interval);
+            if (loadingType !== 'polling') {
+                clearInterval(this.interval);
+            }
 
             if (this.loading)
                 return;
@@ -62,7 +65,11 @@ export default {
 
                     this.error(data, error.response, error);
                 })
-                .finally(() => this.setupInterval())
+                .finally(() => {
+                    if (loadingType !== 'polling') {
+                        this.setupInterval();
+                    }
+                })
         },
 
         success(data, response) {
@@ -74,7 +81,18 @@ export default {
         },
 
         setupInterval() {
+            clearInterval(this.interval);
+
+            if (this.killed) {
+                return;
+            }
+
             this.interval = setInterval(() => {
+                if (this.killed) {
+                    clearInterval(this.interval);
+                    return;
+                }
+
                 if (this.polling && !this.loading) {
                     this.fetch('polling');
                 }

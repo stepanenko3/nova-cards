@@ -2,34 +2,56 @@
 
 namespace Stepanenko3\NovaCards\Http\Controllers;
 
+use Cron\CronExpression;
+use DateTimeZone;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Routing\Controller;
-use Stepanenko3\NovaCards\Factories\ScheduledJobFactory;
+use Illuminate\Support\Carbon;
 
 class ScheduledJobsController extends Controller
 {
     public function __invoke(Kernel $kernel, Schedule $schedule)
     {
-        $jobs = collect($schedule->events())
-            ->map(function ($event) {
+        $timezone = new DateTimeZone(config('app.timezone'));
 
-                $scheduleEvent = new ScheduledJobFactory($event);
+        $jobs = collect($schedule->events())
+            ->map(function ($event) use ($timezone) {
+                $nextDueDate = $this->getNextDueDateForEvent($event, $timezone);
+
+                preg_match("/artisan.*?\s(.*)/", $event->command, $matches);
+
+                $command = $matches[1] ?? null;
 
                 return [
-                    'command' => $scheduleEvent->command(),
-                    'description' => $scheduleEvent->description(),
-                    'expression' => $scheduleEvent->expression,
-                    'humanReadableExpression' => $scheduleEvent->humanReadableExpression(),
-                    'nextRunAt' => $scheduleEvent->nextRunAt()->toIso8601String(),
-                    'humanReadableNextRun' => $scheduleEvent->nextRunAt()->diffForHumans(),
-                    'timezone' => $scheduleEvent->timezone(),
-                    'withoutOverlapping' => $scheduleEvent->withoutOverlapping,
-                    'onOneServer' => $scheduleEvent->onOneServer,
-                    'evenInMaintenanceMode' => $scheduleEvent->evenInMaintenanceMode,
+                    'command' => $command,
+                    'description' => $event->description,
+                    'expression' => $event->expression,
+                    'humanReadableExpression' => $nextDueDate->diffForHumans(),
+                    'nextRunAt' => $nextDueDate->toIso8601String(),
+                    'humanReadableNextRun' => $nextDueDate->diffForHumans(),
+                    'timezone' => $timezone,
+                    'withoutOverlapping' => $event->withoutOverlapping,
+                    'onOneServer' => $event->onOneServer,
                 ];
             });
 
         return response()->json($jobs);
+    }
+
+    /**
+     * Get the next due date for an event.
+     *
+     * @param  \Illuminate\Console\Scheduling\Event  $event
+     * @param  \DateTimeZone  $timezone
+     * @return \Illuminate\Support\Carbon
+     */
+    private function getNextDueDateForEvent($event, DateTimeZone $timezone)
+    {
+        return Carbon::instance(
+            (new CronExpression($event->expression))
+                ->getNextRunDate(Carbon::now()->setTimezone($event->timezone))
+                ->setTimezone($timezone)
+        );
     }
 }
