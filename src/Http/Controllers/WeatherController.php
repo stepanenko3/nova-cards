@@ -19,7 +19,7 @@ class WeatherController
             10,
             fn () => Http::get('https://api.openweathermap.org/data/2.5/weather', [
                 'q' => $request->input('q', 'Kiev'),
-                'appid' => config('nova-cards.open_weather_token'),
+                'appid' => config('nova-cards.open_weather_api_key'),
                 'units' => $request->input('units', 'metric'),
                 'lang' => $request->input('lang', config('app.locale')),
             ])->json(),
