@@ -1,6 +1,6 @@
 <?php
 
-namespace Stepanenko3\NovaCards\Cards;;
+namespace Stepanenko3\NovaCards\Cards;
 
 use Laravel\Nova\Card;
 use Stepanenko3\NovaCards\Traits\PollingTrait;
@@ -18,7 +18,8 @@ class ScheduledJobsCard extends Card
 
     /**
      * Create a new element.
-     * @param  string|null  $component
+     *
+     * @param null|string $component
      */
     public function __construct($component = null)
     {
@@ -29,7 +30,7 @@ class ScheduledJobsCard extends Card
     public function title($title = '')
     {
         return $this->withMeta([
-            'title' => $title
+            'title' => $title,
         ]);
     }
 

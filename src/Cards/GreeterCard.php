@@ -55,7 +55,6 @@ class GreeterCard extends Card
             'name' => $name,
             'target' => $target,
             'style' => $style,
-
         ];
 
         return $this->withMeta([

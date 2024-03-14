@@ -18,7 +18,8 @@ class VersionsCard extends Card
 
     /**
      * Create a new element.
-     * @param  string|null  $component
+     *
+     * @param null|string $component
      */
     public function __construct($component = null)
     {
@@ -29,7 +30,7 @@ class VersionsCard extends Card
     public function title($title = '')
     {
         return $this->withMeta([
-            'title' => $title
+            'title' => $title,
         ]);
     }
 

@@ -16,7 +16,8 @@ class NovaReleasesController extends Controller
             $response = Http::get('https://nova.laravel.com/api/releases')->json();
 
             $response['releases'] = collect($response['releases'])->map(function ($release) {
-                $release['html_notes'] = (new Parsedown)->text($release['notes']);
+                $release['html_notes'] = (new Parsedown())->text($release['notes']);
+
                 return $release;
             })->toArray();
 

@@ -7,6 +7,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Console\Parser;
 use Carbon\Carbon;
 use Cron\CronExpression;
+use ReflectionClass;
 use Stepanenko3\NovaCards\Vendor\CronSchedule;
 
 class ScheduledJobFactory
@@ -18,36 +19,46 @@ class ScheduledJobFactory
         $this->event = $event;
     }
 
-    public function command() {
+    public function __get($name)
+    {
+        return $this->event->{$name};
+    }
+
+    public function command()
+    {
         if ($this->event instanceof \Illuminate\Console\Scheduling\CallbackEvent) {
             return $this->event->description ?? 'Closure';
         }
 
-        preg_match("/artisan.*?\s(.*)/", $this->event->command, $matches);
+        preg_match('/artisan.*?\\s(.*)/', $this->event->command, $matches);
 
         return $matches[1] ?? null;
     }
 
-    public function className() {
+    public function className()
+    {
         if ($this->event instanceof \Illuminate\Console\Scheduling\CallbackEvent) {
             return $this->event->description;
         }
 
-        list($command) = Parser::parse($this->command());
+        [$command] = Parser::parse($this->command());
 
-        $commands = app(Kernel::class)->all();
+        // $commands = app(Kernel::class)->all();
 
-        if (!isset($commands[$command])) {
-            return '';
-        }
+        // if (!isset($commands[$command])) {
+        //     return '';
+        // }
 
-        return get_class($commands[$command]);
+        // return get_class($commands[$command]);
+
+        return '';
     }
 
     public function description()
     {
         try {
-            $reflection = new \ReflectionClass($this->className());
+            $reflection = new ReflectionClass($this->className());
+
             return (string) Arr::get($reflection->getDefaultProperties(), 'description', '');
         } catch (\ReflectionException $exception) {
             return '';
@@ -64,15 +75,14 @@ class ScheduledJobFactory
         return $this->event->timezone ?: 'UTC';
     }
 
-    public function __get($name)
-    {
-        return $this->event->{$name};
-    }
-
     public function nextRunAt($expression = null, $tz = null)
     {
-        if (!$expression) $expression = $this->event->expression;
-        if (!$tz) $tz = $this->timezone();
+        if (!$expression) {
+            $expression = $this->event->expression;
+        }
+        if (!$tz) {
+            $tz = $this->timezone();
+        }
 
         $cron = new CronExpression($expression);
         $nextRun = Carbon::instance($cron->getNextRunDate());

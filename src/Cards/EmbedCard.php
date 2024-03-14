@@ -10,9 +10,6 @@ use Laravel\Nova\Card;
  */
 class EmbedCard extends Card
 {
-    /**
-     * @param $component
-     */
     public function __construct($component = null)
     {
         parent::__construct($component);
@@ -24,9 +21,10 @@ class EmbedCard extends Card
     }
 
     /**
-     * The url to embed
+     * The url to embed.
      *
      * @param string $url The url to load into an <iframe>...</iframe>
+     *
      * @return EmbedCard
      */
     public function url(string $url)
@@ -35,9 +33,10 @@ class EmbedCard extends Card
     }
 
     /**
-     * The url to embed
+     * The url to embed.
      *
      * @param string $url The url to load into an <iframe>...</iframe>
+     *
      * @return EmbedCard
      */
     public function withoutPadding()

@@ -18,7 +18,8 @@ class WeatherCard extends Card
 
     /**
      * Create a new element.
-     * @param  string|null  $component
+     *
+     * @param null|string $component
      */
     public function __construct($component = null)
     {

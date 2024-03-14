@@ -17,11 +17,11 @@ class WorldClockController
             $name = explode('/', $time->getTimezone()->getName())[1];
             $name = str_replace('_', ' ', $name);
 
-            array_push($times, [
+            $times[] = [
                 'name' => __(ucwords($name)),
                 'time' => $time->format($request->input('timeFormat', 'H:i:s')),
-                'night' => $night
-            ]);
+                'night' => $night,
+            ];
         }
 
         return $times;

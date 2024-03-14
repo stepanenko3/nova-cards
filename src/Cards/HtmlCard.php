@@ -10,13 +10,15 @@ class HtmlCard extends Card
 {
     /**
      * The width of the card (1/3, 1/2, or full).
+     *
      * @var string
      */
     public $width = '1/3';
 
     /**
      * Create a new element.
-     * @param  string|null  $component
+     *
+     * @param null|string $component
      */
     public function __construct($component = null)
     {
@@ -30,7 +32,7 @@ class HtmlCard extends Card
         ]);
     }
 
-    /** @inheritDoc */
+    /** {@inheritDoc} */
     public function component()
     {
         return 'html-card';
@@ -52,7 +54,7 @@ class HtmlCard extends Card
 
     /**
      * Use blade view file to render Card content.
-     * @param string $view
+     *
      * @param array<string, mixed> $viewData
      */
     public function view(string $view, array $viewData = []): static
@@ -73,6 +75,7 @@ class HtmlCard extends Card
      * Nova has undocumented feature to auto-order cards based on width and put
      * full-width cards at the bottom. If you want to display full-width cards
      * not at the end, you should use with=1/3 or 2/3 and this method.
+     *
      * @see https://github.com/laravel/nova-issues/issues/1895#issuecomment-543684472
      */
     public function forceFullWidth(bool $forceFullWidth = true): static

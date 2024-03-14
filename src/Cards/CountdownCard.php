@@ -17,7 +17,6 @@ class CountdownCard extends Card
     /**
      * Set the label at the bottom of the timer.
      *
-     * @param  string  $label
      * @return self
      */
     public function label(string $label)
@@ -30,20 +29,19 @@ class CountdownCard extends Card
     public function title($title = '')
     {
         return $this->withMeta([
-            'title' => $title
+            'title' => $title,
         ]);
     }
 
     /**
      * Set the end date of the countdown.
      *
-     * @param  \Carbon\Carbon  $date
      * @return self
      */
     public function to(Carbon $date)
     {
         return $this->withMeta([
-            'to' => $date->timestamp * 1000
+            'to' => $date->timestamp * 1000,
         ]);
     }
 

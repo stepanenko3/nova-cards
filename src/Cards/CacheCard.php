@@ -19,8 +19,7 @@ class CacheCard extends Card
     /**
      * Construct a new Card with a predefined theme.
      *
-     * @param  string|null  $component
-     * @return void
+     * @param null|string $component
      */
     public function __construct($component = null)
     {

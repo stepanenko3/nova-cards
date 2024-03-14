@@ -6,9 +6,10 @@ trait PollingTrait
 {
     /**
      * Create a new element.
-     * @param  string|null  $component
+     *
+     * @param null|string $component
      */
-    public function initPolling()
+    public function initPolling(): void
     {
         $this->withMeta([
             'polling' => true,
@@ -27,7 +28,7 @@ trait PollingTrait
     public function pollingTime(int $ms = 1000): static
     {
         return $this->withMeta([
-            'pollingTime' => $ms
+            'pollingTime' => $ms,
         ]);
     }
 }

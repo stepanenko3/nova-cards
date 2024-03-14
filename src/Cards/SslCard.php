@@ -19,8 +19,7 @@ class SslCard extends Card
     /**
      * Construct a new Card with a predefined theme.
      *
-     * @param  string|null  $component
-     * @return void
+     * @param null|string $component
      */
     public function __construct($component = null)
     {
@@ -29,7 +28,7 @@ class SslCard extends Card
         $this->initPolling();
     }
 
-    public function domain(string $domain = null)
+    public function domain(?string $domain = null)
     {
         $domain = $domain ?: request()->getHost();
 

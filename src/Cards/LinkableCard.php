@@ -9,8 +9,7 @@ class LinkableCard extends Card
     /**
      * Construct a new Card with a predefined theme.
      *
-     * @param  string|null  $component
-     * @return void
+     * @param null|string $component
      */
     public function __construct($component = null)
     {
@@ -27,7 +26,6 @@ class LinkableCard extends Card
     /**
      * Set URL which the Card should redirect to.
      *
-     * @param  string  $url
      * @return $this
      */
     public function url(string $url): static
@@ -40,7 +38,6 @@ class LinkableCard extends Card
     /**
      * Set title which will be shown on the Card.
      *
-     * @param  string  $title
      * @return $this
      */
     public function title(string $title): static
@@ -53,7 +50,6 @@ class LinkableCard extends Card
     /**
      * Set subtitle which will be shown on the Card.
      *
-     * @param  string  $subtitle
      * @return $this
      */
     public function subtitle(string $subtitle): static
@@ -66,7 +62,6 @@ class LinkableCard extends Card
     /**
      * Set the target of the Card on how to open the link (like in a new tab or window).
      *
-     * @param  string  $target
      * @return $this
      */
     public function target(string $target): static
@@ -78,8 +73,6 @@ class LinkableCard extends Card
 
     /**
      * Get the component name for the element.
-     *
-     * @return string
      */
     public function component(): string
     {

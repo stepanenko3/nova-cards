@@ -11,7 +11,7 @@ class VersionsController
     {
         return [
             'os' => php_uname('s') . ' (' . php_uname('r') . ' - ' . php_uname('v') . ')',
-            'php' => phpversion(),
+            'php' => PHP_VERSION,
             'database' => $this->getDatabase(),
             'laravel' => app()->version(),
             'nova' => Nova::version(),
@@ -31,8 +31,7 @@ class VersionsController
             return 'Unkown';
         }
 
-
-        $results = DB::select("select version()");
+        $results = DB::select('select version()');
 
         return config('database.default') . ' ' . ((array) $results[0])['version()'];
     }

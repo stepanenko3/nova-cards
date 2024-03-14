@@ -19,7 +19,7 @@ class ScheduledJobsController extends Controller
             ->map(function ($event) use ($timezone) {
                 $nextDueDate = $this->getNextDueDateForEvent($event, $timezone);
 
-                preg_match("/artisan.*?\s(.*)/", $event->command, $matches);
+                preg_match('/artisan.*?\\s(.*)/', $event->command, $matches);
 
                 $command = $matches[1] ?? null;
 
@@ -42,9 +42,9 @@ class ScheduledJobsController extends Controller
     /**
      * Get the next due date for an event.
      *
-     * @param  \Illuminate\Console\Scheduling\Event  $event
-     * @param  \DateTimeZone  $timezone
-     * @return \Illuminate\Support\Carbon
+     * @param \Illuminate\Console\Scheduling\Event $event
+     *
+     * @return Carbon
      */
     private function getNextDueDateForEvent($event, DateTimeZone $timezone)
     {

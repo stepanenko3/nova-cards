@@ -33,7 +33,7 @@ Route::get('blockchain-exchange', BlockchainExchangeController::class);
 Route::get('environment', EnvironmentController::class);
 Route::controller(CacheController::class)
     ->prefix('cache')
-    ->group(function () {
+    ->group(function (): void {
         Route::post('flush', 'flush');
         Route::get('load', 'load');
         Route::post('', 'forget');

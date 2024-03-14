@@ -11,7 +11,7 @@ class NovaInstalledVersionController extends Controller
     public function __invoke()
     {
         return response()->json([
-            'installed_version' => Str::before(Nova::version(), " "),
+            'installed_version' => Str::before(Nova::version(), ' '),
         ]);
     }
 }
