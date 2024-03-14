@@ -3,7 +3,7 @@ name: PHP Lint
 
 on:
     push:
-        branches: main
+        branches: master
     pull_request:
 
 jobs:
