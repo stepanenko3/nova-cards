@@ -1,69 +1,109 @@
 <template>
-    <LoadingCardWithButton
-        :heading="card.title || 'Server Metrics'"
-        :card="card"
+    <NovaCardsCard
+        :heading="card.title || __('Server Metrics')"
+        :showPolling="card?.polling || false"
+        :showRefresh="card?.refresh || true"
         :loading="loading"
-        :loadingType="loadingType"
         :polling="polling"
+        :pollingInterval="10000"
         @update:polling="polling = $event"
-        @refresh="fetch('button')"
+        @refresh="refresh"
     >
-        <table v-if="data && data.disk_space" class="w-full text-left table-collapse">
+        <table
+            v-if="response && response.disk_space"
+            class="w-full text-left table-collapse"
+        >
             <tbody class="align-baseline">
                 <tr>
-                    <td class="py-2 pr-2 font-bold">Disk Space</td>
+                    <td class="py-2 pr-2 font-bold">
+                        {{ __("Disk Space") }}
+                    </td>
                     <td class="p-2">
-                        {{ data.disk_space.use_percentage}}% Used
-                        ({{ data.disk_space.used.memory }}<span class="text-xs">{{ data.disk_space.used.unit.toLowerCase() }}</span> / {{ data.disk_space.total.memory }}<span class="text-xs">{{ data.disk_space.total.unit.toLowerCase() }}</span>)
+                        {{ response.disk_space.use_percentage }}%
+                        {{ __("Used") }} (
+                        {{ response.disk_space.used.memory }}
+                        <span class="text-xs">
+                            {{ response.disk_space.used.unit.toLowerCase() }}
+                        </span>
+                        /
+                        {{ response.disk_space.total.memory }}
+                        <span class="text-xs">
+                            {{ response.disk_space.total.unit.toLowerCase() }}
+                        </span>
+                        )
                     </td>
                 </tr>
-                <tr v-if="data.memory_usage">
-                    <td class="py-2 pr-2 font-bold">Memory Usage</td>
+                <tr v-if="response.memory_usage">
+                    <td class="py-2 pr-2 font-bold">
+                        {{ __("Memory Usage") }}
+                    </td>
                     <td class="p-2">
-                        {{ data.memory_usage.use_percentage}}% Used ({{ data.memory_usage.used.memory }}<span class="text-xs">{{ data.memory_usage.used.unit.toLowerCase() }}</span> / {{ data.memory_usage.total.memory }}<span class="text-xs">{{ data.memory_usage.total.unit.toLowerCase() }}</span>)
+                        {{ response.memory_usage.use_percentage }}%
+                        {{ __("Used") }} (
+                        {{ response.memory_usage.used.memory }}
+
+                        <span class="text-xs">
+                            {{ response.memory_usage.used.unit.toLowerCase() }}
+                        </span>
+                        / {{ response.memory_usage.total.memory }}
+                        <span class="text-xs">
+                            {{ response.memory_usage.total.unit.toLowerCase() }}
+                        </span>
+                        )
                     </td>
                 </tr>
                 <tr>
-                    <td class="py-2 pr-2 font-bold">CPU Usage</td>
+                    <td class="py-2 pr-2 font-bold">
+                        {{ __("CPU Usage") }}
+                    </td>
                     <td class="p-2">
-                        {{ data.cpu_usage.use_percentage}}% Used
-                        <br>
-                        <span class="text-xs">{{ data.cpu_usage.name }}</span>
+                        {{ response.cpu_usage.use_percentage }}%
+                        {{ __("Used") }}
+                        <br />
+                        <span class="text-xs">
+                            {{ response.cpu_usage.name }}
+                        </span>
                     </td>
                 </tr>
             </tbody>
         </table>
         <div v-else>
-            {{ __('No Data') }}
+            {{ __("No Data") }}
         </div>
-    </LoadingCardWithButton>
+    </NovaCardsCard>
 </template>
 
-<script>
-    import Polling from '../mixins/Polling.js'
+<script setup lang="ts">
+import { ref, defineProps } from "vue";
+import { useLocalization } from "LaravelNova";
 
-    export default {
-        props: {
-            card: {
-                type: Object,
-                required: true,
-            },
-        },
+defineProps<{
+    card: {
+        title: string;
+        polling?: boolean;
+        refresh?: boolean;
+    };
+}>();
 
-        mixins: [Polling],
+const { __ } = useLocalization();
 
-        data: () => ({
-            data: {},
-        }),
+const loading = ref<boolean>(false);
+const polling = ref<boolean>(true);
+const response = ref<any>();
 
-        methods: {
-            endpoint() {
-                return Nova.request().get('/nova-vendor/stepanenko3/nova-cards/system-resources');
-            },
+async function refresh() {
+    loading.value = true;
 
-            success(data) {
-                this.data = data
-            },
-        }
-    }
+    await fetch("/nova-vendor/stepanenko3/nova-cards/system-resources")
+        .then((res) => res.json())
+        .then((data) => {
+            response.value = data;
+        })
+        .catch((error) => {
+            console.error(error);
+        })
+        .finally(() => {
+            loading.value = false;
+        });
+}
 </script>

@@ -1,58 +1,31 @@
 <template>
-    <LoadingCardWithButton
-        :heading="card.title || __('Current Environment')"
-        :card="card"
-        :loading="loading"
-        :loadingType="loadingType"
-        :polling="polling"
-        @update:polling="polling = $event"
-        @refresh="fetch('button')"
-    >
-        <div class="flex items-center w-full">
-            <Icon
-                width="30"
-                height="30"
-                :type="env !== 'production' ? 'exclamation-circle' : 'check-circle'"
-                class="mr-4"
-                :class="{
-                    'text-yellow-500': env !== 'production',
-                    'text-green-500': env === 'production',
-                }"
-            />
-
-            <Heading
-                level="3"
-                v-text="env"
-            />
+    <NovaCardsCard class="flex flex-col items-center justify-center">
+        <div class="text-basic text-center mb-2">
+            {{ card.title || __("Current Environment") }}
         </div>
-    </LoadingCardWithButton>
+        <div
+            class="flex items-center w-full text-lg font-bold uppercase"
+            :class="{
+                'text-yellow-500': card.env !== 'production',
+                'text-green-500': card.env === 'production',
+            }"
+        >
+            <span v-if="card.env !== 'production'" class="mr-2"> ( ! ) </span>
+            {{ card.env }}
+        </div>
+    </NovaCardsCard>
 </template>
 
-<script>
-    import Polling from '../mixins/Polling.js'
+<script setup lang="ts">
+import { defineProps } from "vue";
+import { useLocalization } from "LaravelNova";
 
-    export default {
-        props: {
-            card: {
-                type: Object,
-                required: true,
-            },
-        },
+defineProps<{
+    card: {
+        title: string;
+        env: string;
+    };
+}>();
 
-        mixins: [Polling],
-
-        data: () => ({
-    		env: '...',
-        }),
-
-        methods: {
-            endpoint() {
-                return Nova.request().get('/nova-vendor/stepanenko3/nova-cards/environment');
-            },
-
-            success(data) {
-                this.env = data
-            },
-        },
-    }
+const { __ } = useLocalization();
 </script>

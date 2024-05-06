@@ -7,8 +7,9 @@ use Illuminate\Http\Request;
 
 class WorldClockController
 {
-    public function __invoke(Request $request)
-    {
+    public function __invoke(
+        Request $request,
+    ) {
         $times = [];
 
         foreach ($request->input('timezones', []) as $timezone) {

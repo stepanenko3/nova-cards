@@ -1,51 +1,26 @@
 <template>
-    <div v-if="card.withoutCardStyles" class="htmlCard" :class="cardClassList">
-        <div v-html="card.content" class="htmlCard__content">
-        </div>
-    </div>
-
-    <Card v-else class="htmlCard" :class="cardClassList">
-        <div class="px-3 py-3">
-            <div v-html="card.content" class="htmlCard__content">
-            </div>
-        </div>
-    </Card>
+    <div v-if="card.withoutCardStyles" class="h-full" :class="cardClassList" v-html="card.content"></div>
+    <NovaCardsCard v-else :class="cardClassList" v-html="card.content" />
 </template>
 
-<script>
-    export default {
-        props: {
-            card: {
-                type: Object,
-                required: true,
-            },
-        },
+<script setup lang="ts">
+import { computed, defineProps } from 'vue';
 
-        computed: {
-            cardClassList() {
-                let classes = '';
-                if (this.card.center) {
-                    classes += ' flex flex-col justify-center text-center';
-                }
-                return classes;
-            },
-        },
+const props = defineProps<{
+    card: {
+        content: string;
+        center?: boolean;
+        forceFullWidth?: boolean;
+        withoutCardStyles?: boolean;
+    };
+}>();
 
-        mounted() {
-            if (this.card.forceFullWidth) {
-                this.$parent.$el.classList.remove('w-5/6');
-                this.$parent.$el.classList.add('w-full');
-            }
-        },
+const cardClassList = computed(() => {
+    let classes = '';
+
+    if (props.card.center) {
+        classes += ' flex flex-col justify-center text-center';
     }
+    return classes;
+});
 </script>
-
-<style>
-    .htmlCard {
-        height: auto;
-    }
-
-    .htmlCard__content>p:not(:last-child) {
-        margin-bottom: 1em;
-    }
-</style>

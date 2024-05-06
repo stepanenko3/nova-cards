@@ -4,11 +4,6 @@ namespace Stepanenko3\NovaCards\Traits;
 
 trait PollingTrait
 {
-    /**
-     * Create a new element.
-     *
-     * @param null|string $component
-     */
     public function initPolling(): void
     {
         $this->withMeta([
@@ -25,8 +20,9 @@ trait PollingTrait
         ]);
     }
 
-    public function pollingTime(int $ms = 1000): static
-    {
+    public function pollingTime(
+        int $ms = 1000,
+    ): static {
         return $this->withMeta([
             'pollingTime' => $ms,
         ]);

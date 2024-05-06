@@ -20,7 +20,7 @@ class SystemResourcesController extends Controller
         $cpuName = SystemResources::cpuName();
         $cpu = SystemResources::cpu();
 
-        return [
+        return response()->json([
             'disk_space' => [
                 'total' => formatMemory(
                     size: $diskTotal,
@@ -55,6 +55,6 @@ class SystemResourcesController extends Controller
                 'name' => $cpuName,
                 'use_percentage' => $cpu,
             ],
-        ];
+        ]);
     }
 }

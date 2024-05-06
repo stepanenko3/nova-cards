@@ -4,28 +4,29 @@
             {{ props.timezone }}
         </td>
         <td class="p-2">
-            {{ iso[2] || '-' }}
+            {{ iso[2] || "-" }}
         </td>
         <td class="p-2">
-            <Icon class="text-primary-500" :type="isDayTime(currentTime) ? 'sun' : 'moon'"></Icon>
+            <Icon
+                class="text-primary-500"
+                :type="isDayTime(currentTime) ? 'sun' : 'moon'"
+            ></Icon>
         </td>
     </tr>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { useCurrentTime } from "../composables/useCurrentTime";
 
-const props = defineProps({
-    timezone: {
-        type: String,
-        required: false,
-    },
-});
+const props = defineProps<{
+    timezone: string;
+}>();
 
 const { currentTime, iso } = useCurrentTime(props.timezone);
 
 function isDayTime(date) {
     const hours = date.getHours();
+
     return hours > 6 && hours < 20;
 }
 </script>

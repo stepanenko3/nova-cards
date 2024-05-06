@@ -1,5 +1,5 @@
 <template>
-    <Card class="h-auto flex items-center p-4">
+    <NovaCardsCard class="h-auto flex items-center p-4">
         <div class="flex items-center justify-between flex-grow">
             <div class="flex items-center space-x-4">
                 <div v-if="card.avatar" class="flex-shrink-0">
@@ -9,9 +9,11 @@
                         :alt="card.user_name"
                     />
                 </div>
-                <div v-else class="flex-shrink-0 text-3xl h-20 w-20 rounded-full bg-primary-500 tracking-wide text-white flex items-center justify-center">
-                    {{  getInitials(card.user_name) }}
-
+                <div
+                    v-else
+                    class="flex-shrink-0 text-3xl h-20 w-20 rounded-full bg-primary-500 tracking-wide text-white flex items-center justify-center"
+                >
+                    {{ getInitials(card.user_name) }}
                 </div>
                 <div class="text-left">
                     <p
@@ -19,9 +21,7 @@
                     >
                         {{ card.message ?? __("Welcome back,") }}
                     </p>
-                    <p
-                        class="font-bold text-xl"
-                    >
+                    <p class="font-bold text-xl">
                         {{ card.user_name }}
                     </p>
                     <p
@@ -79,64 +79,43 @@
                 :key="stat.label"
                 class="px-6 py-3 text-sm font-medium text-center"
             >
-                <span class="text-gray-900 dark:text-gray-300">{{
-                    stat.value
-                }}</span>
-                {{ " " }}
-                <span class="text-gray-600 dark:text-gray-400">{{
-                    stat.label
-                }}</span>
+                <span class="text-gray-900 dark:text-gray-300">
+                    {{ stat.value }}
+                </span>
+                <span class="text-gray-600 dark:text-gray-400">
+                    {{ stat.label }}
+                </span>
             </div>
         </div>
-    </Card>
+    </NovaCardsCard>
 </template>
 
-<script setup>
-import { onMounted, onBeforeUnmount, ref } from "vue";
-import { useLocalization } from "laravel-nova";
+<script setup lang="ts">
+import { defineProps } from "vue";
+import { useLocalization } from "LaravelNova";
 
 const { __ } = useLocalization();
 
-defineProps({
-    card: Object,
-});
-
-const observer = ref(null);
-const dark = ref(false);
-
-onMounted(() => {
-    dark.value = document.documentElement.classList.contains("dark");
-
-    observer.value = new MutationObserver((records) => {
-        records.forEach((record) => {
-            dark.value = record.target.classList.contains("dark");
-        });
-    });
-
-    observer.value.observe(document.documentElement, {
-        attributes: true,
-        attributeFilter: ["class"],
-        childList: false,
-        characterData: false,
-    });
-});
-
-onBeforeUnmount(() => {
-    observer.value.disconnect();
-    observer.value = null;
-});
+defineProps<{
+    card: {
+        avatar: boolean;
+        avatar_url: string;
+        user_name: string;
+        message: string;
+        user_title: string;
+        verified: boolean;
+        verified_text: string;
+        buttons: { name: string; target: string }[];
+        stats: { value: string; label: string }[];
+    };
+}>();
 
 function getInitials(name) {
-    return name.match(/(\b\S)?/g).join("").match(/(^\S|\S$)?/g).join("").toUpperCase();
+    return name
+        .match(/(\b\S)?/g)
+        .join("")
+        .match(/(^\S|\S$)?/g)
+        .join("")
+        .toUpperCase();
 }
 </script>
-
-<style>
-.w-20 {
-    width: 80px;
-}
-
-.h-20 {
-    height: 80px;
-}
-</style>

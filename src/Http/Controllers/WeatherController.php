@@ -8,21 +8,25 @@ use Illuminate\Support\Facades\Http;
 
 class WeatherController
 {
-    public function __invoke(Request $request)
-    {
+    public function __invoke(
+        Request $request,
+    ) {
         $data = Cache::remember(
-            'nova-weather-card:' . implode('-', [
+            key: 'nova-weather-card:' . implode('-', [
                 $request->input('q', 'Kiev'),
                 $request->input('units', 'metric'),
                 $request->input('lang', config('app.locale')),
             ]),
-            10,
-            fn () => Http::get('https://api.openweathermap.org/data/2.5/weather', [
-                'q' => $request->input('q', 'Kiev'),
-                'appid' => config('nova-cards.open_weather_api_key'),
-                'units' => $request->input('units', 'metric'),
-                'lang' => $request->input('lang', config('app.locale')),
-            ])->json(),
+            ttl: 10,
+            callback: fn () => Http::get(
+                url: 'https://api.openweathermap.org/data/2.5/weather',
+                query: [
+                    'q' => $request->input('q', 'Kiev'),
+                    'appid' => config('nova-cards.open_weather_api_key'),
+                    'units' => $request->input('units', 'metric'),
+                    'lang' => $request->input('lang', config('app.locale')),
+                ],
+            )->json(),
         );
 
         return response()->json($data);

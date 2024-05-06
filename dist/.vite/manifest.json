@@ -1,0 +1,12 @@
+{
+  "resources/js/entry.js": {
+    "file": "js/entry.js",
+    "name": "entry",
+    "src": "resources/js/entry.js",
+    "isEntry": true
+  },
+  "style.css": {
+    "file": "css/card.css",
+    "src": "style.css"
+  }
+}
