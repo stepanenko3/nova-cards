@@ -1,6 +1,6 @@
 <template>
     <a
-        class="h-auto hover:opacity-50 transition"
+        class="h-auto hover:opacity-50"
         :href="card.url"
         :target="card.target"
     >
