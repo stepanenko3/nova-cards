@@ -8,10 +8,13 @@ use Spatie\SslCertificate\SslCertificate;
 
 class SslController
 {
-    public function __invoke(Request $request)
-    {
+    public function __invoke(
+        Request $request,
+    ) {
         try {
-            $certificate = SslCertificate::createForHostName($request->domain);
+            $certificate = SslCertificate::createForHostName(
+                url: $request->domain,
+            );
 
             return response()->json([
                 'issuer' => $certificate->getIssuer(),

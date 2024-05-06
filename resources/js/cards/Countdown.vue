@@ -1,73 +1,70 @@
 <template>
-    <Card class="h-auto p-4">
-        <Heading :level="3" class="flex items-center justify-between mb-2">
-            {{ card.title || 'Countdown' }}
-        </Heading>
+    <NovaCardsCard
+        :heading="card.title || __('Countdown')"
+        class="flex flex-col items-center justify-center text-center"
+    >
         <p class="flex items-center text-4xl mb-4">
             {{ timeLeft }}
         </p>
-        <div class="flex items-center">
-            <p class="text-80 font-bold" v-if="card.label">
-                <span>{{ card.label }}</span>
-            </p>
+
+        <div class="text-center" v-if="card.label">
+            {{ card.label }}
         </div>
-    </Card>
+    </NovaCardsCard>
 </template>
 
-<script>
-    export default {
-        props: {
-            card: {
-                type: Object,
-                required: true,
-            },
-        },
+<script setup lang="ts">
+import { ref, defineProps, onMounted } from "vue";
+import { useLocalization } from "LaravelNova";
 
-        data: () => ({
-            timeLeft: '00:00:00',
-            remainingTime: 0,
-            seconds: 0,
-            minutes: 0,
-            hours: 0,
-            days: 0,
-        }),
+const props = defineProps<{
+    card: {
+        title: string;
+        to: number;
+        label: string;
+    };
+}>();
 
-        created() {
-            this.remainingTime = this.card.to - new Date().getTime();
-        },
+const { __ } = useLocalization();
 
-        mounted() {
-            if (this.remainingTime > 0)
-                window.requestAnimationFrame(this.showTime);
+const timeLeft = ref<string>("00:00:00:00");
+const remainingTime = ref<number>(0);
+const seconds = ref<number>(0);
+const minutes = ref<number>(0);
+const hours = ref<number>(0);
+const days = ref<number>(0);
 
-            window.addEventListener('focus', () => {
-                if (this.remainingTime < 1000) {
-                    this.timeLeft = '00:00:00:00';
-                    window.cancelAnimationFrame(this.showTime);
-                }
-            });
-        },
+onMounted(() => {
+    remainingTime.value = props.card.to - new Date().getTime();
 
-        methods: {
-            pad(value) {
-                return ('0' + Math.floor(value)).slice(-2);
-            },
+    if (remainingTime.value > 0) window.requestAnimationFrame(showTime);
 
-            showTime() {
-                this.remainingTime = this.card.to - new Date().getTime();
-                this.seconds = this.pad((this.remainingTime % (1000 * 60)) / 1000);
-                this.minutes = this.pad((this.remainingTime % (1000 * 60 * 60)) / (1000 * 60));
-                this.hours = this.pad((this.remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                this.days = this.pad(this.remainingTime / (1000 * 60 * 60 * 24));
-                // ensure clock only updates if a second or more is remaining
-                if (this.remainingTime >= 1000) {
-                    this.timeLeft = `${this.days}:${this.hours}:${this.minutes}:${this.seconds}`;
-                    window.requestAnimationFrame(this.showTime);
-                } else {
-                    window.cancelAnimationFrame(this.showTime);
-                    this.timeLeft = '00:00:00:00';
-                }
-            },
-        },
+    window.addEventListener("focus", () => {
+        if (remainingTime.value < 1000) {
+            timeLeft.value = "00:00:00:00";
+            window.cancelAnimationFrame(showTime);
+        }
+    });
+});
+
+const pad = (value: number) => ("0" + Math.floor(value)).slice(-2);
+
+const showTime = () => {
+    remainingTime.value = props.card.to - new Date().getTime();
+    seconds.value = pad((remainingTime.value % (1000 * 60)) / 1000);
+    minutes.value = pad((remainingTime.value % (1000 * 60 * 60)) / (1000 * 60));
+    hours.value = pad(
+        (remainingTime.value % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+    );
+    days.value = pad(remainingTime.value / (1000 * 60 * 60 * 24));
+
+    // ensure clock only updates if a second or more is remaining
+    if (remainingTime.value >= 1000) {
+        timeLeft.value = `${days.value}:${hours.value}:${minutes.value}:${seconds.value}`;
+        window.requestAnimationFrame(showTime);
+    } else {
+        window.cancelAnimationFrame(showTime);
+        timeLeft.value = "00:00:00:00";
     }
+};
 </script>

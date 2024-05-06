@@ -4,14 +4,11 @@ namespace Stepanenko3\NovaCards\Cards;
 
 use Laravel\Nova\Card;
 
-/**
- * A simple embedding widget card to allow the integration of an url
- * or <iframe>...</iframe> context on e.g. a dashboard.
- */
 class CalendarCard extends Card
 {
-    public function __construct($component = null)
-    {
+    public function __construct(
+        $component = null,
+    ) {
         parent::__construct($component);
 
         $now = now();
@@ -42,12 +39,7 @@ class CalendarCard extends Card
         ]);
     }
 
-    /**
-     * Get the component name for the element.
-     *
-     * @return string
-     */
-    public function component()
+    public function component(): string
     {
         return 'calendar-card';
     }

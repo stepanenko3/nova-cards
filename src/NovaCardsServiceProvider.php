@@ -9,9 +9,6 @@ use Laravel\Nova\Nova;
 
 class NovaCardsServiceProvider extends ServiceProvider
 {
-    /**
-     * Bootstrap any application services.
-     */
     public function boot(): void
     {
         $this->config();
@@ -22,21 +19,15 @@ class NovaCardsServiceProvider extends ServiceProvider
 
         Nova::serving(function (ServingNova $event): void {
             Nova::script('nova-cards', __DIR__ . '/../dist/js/entry.js');
-            // Nova::style('nova-cards', __DIR__.'/../dist/css/index.css');
+            Nova::style('nova-cards', __DIR__ . '/../dist/css/card.css');
         });
     }
 
-    /**
-     * Register any application services.
-     */
     public function register(): void
     {
         $this->app->singleton(MarkdownConverter::class, LaravelMarkdownConverter::class);
     }
 
-    /**
-     * Register the card's routes.
-     */
     protected function routes(): void
     {
         if ($this->app->routesAreCached()) {

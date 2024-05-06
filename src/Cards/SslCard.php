@@ -9,38 +9,27 @@ class SslCard extends Card
 {
     use PollingTrait;
 
-    /**
-     * The width of the card (1/3, 1/2, or full).
-     *
-     * @var string
-     */
     public $width = '1/3';
 
-    /**
-     * Construct a new Card with a predefined theme.
-     *
-     * @param null|string $component
-     */
-    public function __construct($component = null)
-    {
+    public function __construct(
+        $component = null,
+    ) {
         parent::__construct($component);
 
         $this->initPolling();
     }
 
-    public function domain(?string $domain = null)
-    {
+    public function domain(
+        ?string $domain = null
+    ): self {
         $domain = $domain ?: request()->getHost();
 
-        return $this->withMeta(compact('domain'));
+        return $this->withMeta([
+            'domain' => $domain,
+        ]);
     }
 
-    /**
-     * Get the component name for the element.
-     *
-     * @return string
-     */
-    public function component()
+    public function component(): string
     {
         return 'ssl-card';
     }

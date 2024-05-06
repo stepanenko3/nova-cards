@@ -10,8 +10,8 @@
 
 ## List of Cards
 
-- BlockchainExchangeCard
-- CacheCard
+- BlockchainExchangeCard (deleted)
+- CacheCard (Use stepanenkoe/nova-command-runner for cache manipulations)
 - CountdownCard
 - EmbedCard
 - EnvironmentCard
@@ -25,7 +25,7 @@
 - WorldClockCard
 - WeatherCard
 - CalendarCard
-- NovaReleaseCard
+- NovaReleaseCard (Use stepanenko3/nova-health for outdated packages)
 - GreetingCard
 
 ## Requirements
@@ -46,8 +46,6 @@ Register the cards with Nova in the `cards()` method of the your Dashboards clas
 // in app/Nova/Dashborads/Cards.php
 
 use Stepanenko3\NovaCards\Cards\GreetingCard;
-use Stepanenko3\NovaCards\Cards\BlockchainExchangeCard;
-use Stepanenko3\NovaCards\Cards\CacheCard;
 use Stepanenko3\NovaCards\Cards\CountdownCard;
 use Stepanenko3\NovaCards\Cards\EmbedCard;
 use Stepanenko3\NovaCards\Cards\EnvironmentCard;
@@ -61,7 +59,6 @@ use Stepanenko3\NovaCards\Cards\VersionsCard;
 use Stepanenko3\NovaCards\Cards\WorldClockCard;
 use Stepanenko3\NovaCards\Cards\WeatherCard;
 use Stepanenko3\NovaCards\Cards\CalendarCard;
-use Stepanenko3\NovaCards\Cards\NovaReleaseCard;
 
 public function cards()
 {
@@ -102,8 +99,6 @@ public function cards()
             ->url('/') // Required
             ->target('_blank'), // Default: _self
 
-        (new CacheCard),
-
         (new SystemResourcesCard),
 
         (new VersionsCard),
@@ -112,11 +107,6 @@ public function cards()
             ->startPolling() // Optional. Auto start polling
             ->pollingTime(1000)
             ->width('1/2'),
-
-        (new BlockchainExchangeCard)
-            ->width('1/2'),
-
-        (new NovaReleaseCard),
 
         (new EnvironmentCard),
 

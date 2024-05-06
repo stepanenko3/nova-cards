@@ -1,20 +1,21 @@
 <template>
-    <LoadingCardWithButton
+    <NovaCardsCard
         :heading="card.title || __('Scheduled Jobs')"
-        :card="card"
+        :showPolling="card?.polling || false"
+        :showRefresh="card?.refresh || true"
         :loading="loading"
-        :loadingType="loadingType"
         :polling="polling"
+        :pollingInterval="10000"
         @update:polling="polling = $event"
-        @refresh="fetch('button')"
+        @refresh="refresh"
     >
-        <p v-if="!loading && !data.length">
-            {{ __('No Data') }}
+        <p v-if="!response.length">
+            {{ __(loading ? "Loading..." : "No Data") }}
         </p>
 
-        <table v-if="data.length" class="w-full text-left table-collapse">
+        <table v-if="response.length" class="w-full text-left table-collapse">
             <tbody class="align-baseline">
-                <tr v-for="(item, index) in data" :item="item">
+                <tr v-for="(item, index) in response" :item="item">
                     <td class="py-2 pr-2 font-bold" style="word-wrap: anywhere">
                         {{ item.command }}
                     </td>
@@ -27,34 +28,39 @@
                 </tr>
             </tbody>
         </table>
-    </LoadingCardWithButton>
+    </NovaCardsCard>
 </template>
 
-<script>
-    import Polling from '../mixins/Polling.js'
+<script setup lang="ts">
+import { ref, defineProps } from "vue";
+import { useLocalization } from "LaravelNova";
 
-    export default {
-        props: {
-            card: {
-                type: Object,
-                required: true,
-            },
-        },
+const props = defineProps<{
+    card: {
+        title: string;
+        polling?: boolean;
+        refresh?: boolean;
+    };
+}>();
 
-        mixins: [Polling],
+const { __ } = useLocalization();
 
-        data: () => ({
-            data: [],
-        }),
+const loading = ref<boolean>(false);
+const polling = ref<boolean>(true);
+const response = ref<any>();
 
-        methods: {
-            endpoint() {
-                return Nova.request().get('/nova-vendor/stepanenko3/nova-cards/scheduled-jobs');
-            },
+async function refresh() {
+    loading.value = true;
 
-            success(data) {
-                this.data = data
-            },
-        },
-    }
+    await fetch("/nova-vendor/stepanenko3/nova-cards/scheduled-jobs")
+        .then((res) => res.json())
+        .then((data) => {
+            response.value = data;
+        })
+        .catch((error) => {
+            console.error("Error fetching weather:", error);
+        });
+
+    loading.value = false;
+}
 </script>

@@ -18,7 +18,7 @@ class VersionsController
         ];
     }
 
-    private function getDatabase()
+    private function getDatabase(): string
     {
         $knownDatabases = [
             'sqlite',

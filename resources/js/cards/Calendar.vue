@@ -1,14 +1,10 @@
 <template>
-    <Card class="h-auto p-4">
-        <Heading :level="3" class="flex items-center justify-between mb-2">
-            {{ card.day.name }}, {{ card.day.withMonth }}
-        </Heading>
-
+    <NovaCardsCard :heading="`${card.day.name} ${card.day.withMonth}`">
         <table class="w-full text-left table-collapse">
             <tbody class="align-baseline">
                 <tr>
                     <td class="py-2 pr-2 font-bold">
-                        Year
+                        {{ __('Year') }}
                     </td>
                     <td class="p-2">
                         {{ card.year }}
@@ -16,7 +12,7 @@
                 </tr>
                 <!-- <tr>
                     <td class="py-2 pr-2 font-bold">
-                        Day of week
+                        {{ __('Day of week') }}
                     </td>
                     <td class="p-2">
                         {{ card.dayOfWeek }}
@@ -24,7 +20,7 @@
                 </tr> -->
                 <tr>
                     <td class="py-2 pr-2 font-bold">
-                        Day of year
+                        {{ __('Day of year') }}
                     </td>
                     <td class="p-2">
                         {{ card.dayOfYear }}
@@ -32,7 +28,7 @@
                 </tr>
                 <!-- <tr>
                     <td class="py-2 pr-2 font-bold">
-                        Week of month
+                        {{ __('Week of month') }}
                     </td>
                     <td class="p-2">
                         {{ card.weekOfMonth }}
@@ -40,7 +36,7 @@
                 </tr> -->
                 <!-- <tr>
                     <td class="py-2 pr-2 font-bold">
-                        Week of year
+                        {{ __('Week of year') }}
                     </td>
                     <td class="p-2">
                         {{ card.weekOfYear }}
@@ -48,7 +44,7 @@
                 </tr> -->
                 <tr>
                     <td class="py-2 pr-2 font-bold">
-                        Days in month
+                        {{ __('Days in month') }}
                     </td>
                     <td class="p-2">
                         {{ card.daysInMonth }}
@@ -56,7 +52,7 @@
                 </tr>
                 <tr>
                     <td class="py-2 pr-2 font-bold">
-                        Qarter
+                        {{ __('Qarter') }}
                     </td>
                     <td class="p-2">
                         {{ card.quarter }}
@@ -64,7 +60,7 @@
                 </tr>
                 <tr>
                     <td class="py-2 pr-2 font-bold">
-                        Timezone
+                        {{ __('Timezone') }}
                     </td>
                     <td class="p-2">
                         {{ card.timezone }}
@@ -72,28 +68,29 @@
                 </tr>
             </tbody>
         </table>
-    </Card>
+    </NovaCardsCard>
 </template>
 
-<script>
-    export default {
-        props: {
-            card: {
-                type: Object,
-                required: true,
-            },
-        },
+<script setup lang="ts">
+import { defineProps } from "vue";
+import { useLocalization } from "LaravelNova";
 
-        created() {
-            //
-        },
+const { __ } = useLocalization();
 
-        mounted() {
-            //
-        },
-
-        methods: {
-            //
-        },
-    }
+defineProps<{
+    card: {
+        day: {
+            name: string;
+            withMonth: string;
+        };
+        year: number;
+        dayOfWeek: number;
+        dayOfYear: number;
+        weekOfMonth: number;
+        weekOfYear: number;
+        daysInMonth: number;
+        quarter: number;
+        timezone: string;
+    };
+}>();
 </script>

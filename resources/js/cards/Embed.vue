@@ -1,21 +1,24 @@
 <template>
-    <Card class="h-auto overflow-hidden" :class="{ 'px-3 py-3': card.hasPadding }">
+    <NovaCardsCard
+        class="h-auto overflow-hidden"
+        :class="{ 'p-3': card.hasPadding, '!p-none !p-0': !card.hasPadding }"
+    >
         <iframe
             class="w-full h-full"
             :src="card.url"
             allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen
         ></iframe>
-    </Card>
+    </NovaCardsCard>
 </template>
 
-<script>
-    export default {
-        props: {
-            card: {
-                type: Object,
-                required: true,
-            },
-        },
+<script setup lang="ts">
+import { defineProps } from "vue";
+
+defineProps<{
+    card: {
+        url: string;
+        hasPadding: boolean;
     };
+}>();
 </script>

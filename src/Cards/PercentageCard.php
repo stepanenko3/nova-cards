@@ -6,20 +6,11 @@ use Laravel\Nova\Card;
 
 class PercentageCard extends Card
 {
-    /**
-     * The width of the card (1/3, 1/2, or full).
-     *
-     * @var string
-     */
     public $width = '1/3';
 
-    /**
-     * Create a new element.
-     *
-     * @param null|string $component
-     */
-    public function __construct($component = null)
-    {
+    public function __construct(
+        $component = null,
+    ) {
         parent::__construct($component);
 
         $this->withMeta([
@@ -31,38 +22,48 @@ class PercentageCard extends Card
         ]);
     }
 
-    /**
-     * Get the component name for the element.
-     *
-     * @return string
-     */
-    public function component()
+    public function name(
+        string $text,
+    ): self {
+        return $this->withMeta([
+            'name' => $text,
+        ]);
+    }
+
+    public function label(
+        string $text,
+    ): self {
+        return $this->withMeta([
+            'label' => $text,
+        ]);
+    }
+
+    public function count(
+        int $count,
+    ): self {
+        return $this->withMeta([
+            'count' => $count,
+        ]);
+    }
+
+    public function total(
+        int $count,
+    ): self {
+        return $this->withMeta([
+            'total' => $count,
+        ]);
+    }
+
+    public function percentagePrecision(
+        int $precision,
+    ): self {
+        return $this->withMeta([
+            'percentagePrecision' => $precision,
+        ]);
+    }
+
+    public function component(): string
     {
         return 'percentage-card';
-    }
-
-    public function name(string $text): static
-    {
-        return $this->withMeta(['name' => $text]);
-    }
-
-    public function label(string $text): static
-    {
-        return $this->withMeta(['label' => $text]);
-    }
-
-    public function count(int $count): static
-    {
-        return $this->withMeta(['count' => $count]);
-    }
-
-    public function total(int $count): static
-    {
-        return $this->withMeta(['total' => $count]);
-    }
-
-    public function percentagePrecision(int $precision): static
-    {
-        return $this->withMeta(['percentagePrecision' => $precision]);
     }
 }

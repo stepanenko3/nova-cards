@@ -1,75 +1,90 @@
 <template>
-    <LoadingCardWithButton
-        :heading="card.domain + ' - ' + (data.is_valid ? 'Valid Certificate' : 'Invalid Certificate')"
-        :headingClass="{ 'text-green-500' : data.is_valid, 'text-red-500' : ! data.is_valid }"
-        :card="card"
+    <NovaCardsCard
+        :heading="
+            card.domain +
+            ' - ' +
+            __(response?.is_valid ? 'Valid Certificate' : 'Invalid Certificate')
+        "
+        :headingClass="{
+            'text-green-500': response?.is_valid,
+            'text-red-500': !response?.is_valid,
+        }"
+        :showPolling="card?.polling || false"
+        :showRefresh="card?.refresh || true"
         :loading="loading"
-        :loadingType="loadingType"
         :polling="polling"
+        :pollingInterval="10000"
         @update:polling="polling = $event"
-        @refresh="fetch('button')"
+        @refresh="refresh"
     >
-        <table v-if="!errorMessage" class="w-full text-left table-collapse">
+        <div v-if="!response && loading">
+            {{  __('Loading...') }}
+        </div>
+        <table v-else-if="response && !errorMessage" class="w-full text-left table-collapse">
             <tbody class="align-baseline">
                 <tr>
                     <td class="py-2 pr-2 font-bold">
-                        Issuer
+                        {{ __('Issuer') }}
                     </td>
                     <td class="p-2">
-                        {{ data.issuer }}
+                        {{ response.issuer }}
                     </td>
                 </tr>
                 <tr>
                     <td class="py-2 pr-2 font-bold">
-                        Expiration
+                        {{ __('Expiration') }}
                     </td>
                     <td class="p-2">
-                        {{ data.expiration_date }} (<strong class="italic">{{ data.expiration_date_in_days }} days</strong>)
+                        {{ response.expiration_date }}
+                        (
+                        <strong class="italic">
+                            {{ parseInt(response.expiration_date_in_days) }} days
+                        </strong>
+                        )
                     </td>
                 </tr>
             </tbody>
         </table>
 
         <div v-else>
-            {{ errorMessage }}
+            {{ errorMessage || '' }}
         </div>
-    </LoadingCardWithButton>
+    </NovaCardsCard>
 </template>
 
-<script>
-    import Polling from '../mixins/Polling.js'
+<script setup lang="ts">
+import { ref, defineProps } from "vue";
+import { useLocalization } from "LaravelNova";
 
-    export default {
-        props: {
-            card: {
-                type: Object,
-                required: true,
-            },
-        },
+const props = defineProps<{
+    card: {
+        domain: string;
+        polling?: boolean;
+        refresh?: boolean;
+    };
+}>();
 
-        mixins: [Polling],
+const { __ } = useLocalization();
 
-        data: () => ({
-            data: {},
-    		errorMessage: null,
-        }),
+const loading = ref<boolean>(false);
+const polling = ref<boolean>(false);
+const response = ref<any>();
+const errorMessage = ref<string | null>(null);
 
-        methods: {
-            endpoint() {
-                return Nova.request().get('/nova-vendor/stepanenko3/nova-cards/ssl', {
-                    params: {
-                        domain: this.card.domain,
-                    },
-                });
-            },
+async function refresh() {
+    loading.value = true;
 
-            success(data) {
-                this.data = data
-            },
+    await fetch(
+        "/nova-vendor/stepanenko3/nova-cards/ssl?domain=" + props.card.domain
+    )
+        .then((res) => res.json())
+        .then((data) => {
+            response.value = data;
+        })
+        .catch((error) => {
+            errorMessage.value = error;
+        });
 
-            error(data) {
-        		this.errorMessage = data.error;
-            },
-        },
-    }
+    loading.value = false;
+}
 </script>

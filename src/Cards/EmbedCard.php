@@ -4,14 +4,11 @@ namespace Stepanenko3\NovaCards\Cards;
 
 use Laravel\Nova\Card;
 
-/**
- * A simple embedding widget card to allow the integration of an url
- * or <iframe>...</iframe> context on e.g. a dashboard.
- */
 class EmbedCard extends Card
 {
-    public function __construct($component = null)
-    {
+    public function __construct(
+        $component = null,
+    ) {
         parent::__construct($component);
 
         $this->withMeta([
@@ -20,36 +17,22 @@ class EmbedCard extends Card
         ]);
     }
 
-    /**
-     * The url to embed.
-     *
-     * @param string $url The url to load into an <iframe>...</iframe>
-     *
-     * @return EmbedCard
-     */
-    public function url(string $url)
-    {
-        return $this->withMeta(['url' => $url]);
+    public function url(
+        string $url,
+    ): self {
+        return $this->withMeta([
+            'url' => $url,
+        ]);
     }
 
-    /**
-     * The url to embed.
-     *
-     * @param string $url The url to load into an <iframe>...</iframe>
-     *
-     * @return EmbedCard
-     */
-    public function withoutPadding()
+    public function withoutPadding(): self
     {
-        return $this->withMeta(['hasPadding' => false]);
+        return $this->withMeta([
+            'hasPadding' => false,
+        ]);
     }
 
-    /**
-     * Get the component name for the element.
-     *
-     * @return string
-     */
-    public function component()
+    public function component(): string
     {
         return 'embed-card';
     }
