@@ -35,7 +35,6 @@ Nova.booting((Vue) => {
     Vue.component('world-clock-card', WorldClock);
     Vue.component('environment-card', Environment);
     Vue.component('embed-card', Embed);
-    Vue.component('cache-card', Cache);
     Vue.component('weather-card', Weather);
     Vue.component('calendar-card', Calendar);
     Vue.component('greeter-card', Greeter);
